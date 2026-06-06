@@ -1,0 +1,3901 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ege Sül | Creative Developer Portfolio</title>
+    
+    <!-- Animasyon Kütüphaneleri & Fontlar -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2family=Montserrat:wght@400;700;800;900&family=Poppins:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --lacivert-deep: #020713;
+            --lacivert: #051124;
+            --lacivert-light: #0d2347;
+            --sari: #FFF400;
+            --sari-glow: rgba(255, 244, 0, 0.45);
+            --neon-blue: #00F0FF;
+            --neon-blue-glow: rgba(0, 240, 255, 0.35);
+            --beyaz: #ffffff;
+            --gri: rgba(255, 255, 255, 0.7);
+            --glass-bg: rgba(5, 17, 36, 0.65);
+            --glass-border: rgba(255, 244, 0, 0.15);
+            --font-main: 'Poppins', sans-serif;
+            --font-heading: 'Montserrat', sans-serif;
+            --transition-speed: 0.5s;
+            --mouse-x: 50%;
+            --mouse-y: 50%;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        #typed {
+            color: var(--sari);
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--lacivert-deep);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--sari);
+            border-radius: 4px;
+            box-shadow: 0 0 10px var(--sari-glow);
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--lacivert-deep);
+            color: var(--beyaz);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle 500px at var(--mouse-x) var(--mouse-y), rgba(0, 240, 255, 0.05), transparent 85%);
+            z-index: -3;
+            pointer-events: none;
+            transition: background 0.05s linear;
+        }
+
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--sari), var(--neon-blue));
+            z-index: 9999;
+            width: 0%;
+            transition: width 0.1s ease-out;
+        }
+
+        .cyber-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 254, 254, 0.01) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.01) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-heading);
+            font-weight: 700;
+        }
+
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.4s ease;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 8%;
+            background: rgba(2, 7, 19, 0.75);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--glass-border);
+            transition: all 0.4s ease;
+        }
+
+        header.scrolled .navbar {
+            padding: 15px 8%;
+            background: rgba(2, 7, 19, 0.95);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            border-bottom: 1px solid var(--sari);
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: var(--beyaz);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .logo span {
+            color: var(--sari);
+            text-shadow: 0 0 15px var(--sari-glow);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--beyaz);
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 5px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--sari);
+            transition: width 0.3s ease;
+            box-shadow: 0 0 8px var(--sari);
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--sari);
+            text-shadow: 0 0 8px var(--sari-glow);
+        }
+
+        /* --- LANG SELECTOR --- */
+        .lang-selector {
+            display: flex;
+            gap: 6px;
+            background: rgba(255, 244, 0, 0.05);
+            border: 1px solid var(--glass-border);
+            padding: 4px 10px;
+            border-radius: 50px;
+            align-items: center;
+        }
+
+        .lang-btn {
+            font-size: 11px;
+            font-weight: 800;
+            cursor: pointer;
+            color: var(--gri);
+            transition: all 0.3s ease;
+            padding: 3px 8px;
+            border-radius: 50px;
+            user-select: none;
+        }
+
+        .lang-btn:hover, .lang-btn.active {
+            color: var(--lacivert-deep);
+            background: var(--sari);
+            box-shadow: 0 0 10px var(--sari-glow);
+        }
+
+        .github-link {
+            background: rgba(255, 244, 0, 0.05);
+            border: 1px solid var(--sari);
+            padding: 8px 20px;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700 !important;
+            transition: all 0.3s ease !important;
+            text-decoration: none;
+            color: var(--beyaz);
+            font-size: 14px;
+        }
+
+        .github-link:hover {
+            background: var(--sari) !important;
+            color: var(--lacivert-deep) !important;
+            box-shadow: 0 0 15px var(--sari);
+            transform: translateY(-2px);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            width: 30px;
+            height: 3px;
+            background-color: var(--beyaz);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .portfolio-section {
+            min-height: 100vh;
+            padding: 120px 8% 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero {
+            height: 100vh;
+            padding-top: 0;
+            padding-bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 4.8rem;
+            line-height: 1.1;
+            margin-bottom: 25px;
+            font-weight: 900;
+            letter-spacing: -2px;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            color: var(--gri);
+            margin-bottom: 40px;
+            letter-spacing: 3px;
+            font-weight: 300;
+        }
+
+        .hero-btns {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .main-btn {
+            background-color: var(--sari);
+            color: var(--lacivert-deep);
+            padding: 14px 30px;
+            border-radius: 50px;
+            font-size: 15px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 0 20px var(--sari-glow);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+
+        .main-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 30px var(--sari);
+            background-color: #fffa50;
+        }
+
+        .secondary-btn {
+            background-color: rgba(5, 17, 36, 0.4);
+            border: 1.5px solid rgba(255, 255, 255, 0.2);
+            color: var(--beyaz);
+            padding: 14px 30px;
+            border-radius: 50px;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .secondary-btn:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+            border-color: var(--beyaz);
+            transform: translateY(-3px);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+        }
+
+        .section-header {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+        }
+
+        .section-title span {
+            color: var(--sari);
+            text-shadow: 0 0 15px var(--sari-glow);
+        }
+
+        .underline {
+            width: 80px;
+            height: 4px;
+            background: var(--sari);
+            margin-top: 15px;
+            box-shadow: 0 0 10px var(--sari);
+            border-radius: 2px;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .about-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .about-card h3 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--beyaz), var(--sari));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .about-card p {
+            color: var(--gri);
+            font-size: 16px;
+            margin-bottom: 25px;
+        }
+
+        .terminal {
+            background: rgba(3, 10, 22, 0.85);
+            border: 1.5px solid var(--glass-border);
+            border-radius: 12px;
+            overflow: hidden;
+            font-family: 'Fira Code', monospace;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+        }
+        .terminal-header {
+            background: rgba(13, 35, 71, 0.8);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .terminal-buttons {
+            display: flex;
+            gap: 8px;
+        }
+        .t-btn {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .t-btn.red { background: #ff5f56; }
+        .t-btn.yellow { background: #ffbd2e; }
+        .t-btn.green { background: #27c93f; }
+        .terminal-title {
+            font-size: 11px;
+            color: var(--gri);
+        }
+        .terminal-body {
+            padding: 20px;
+            height: 280px;
+            overflow-y: auto;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #d1f4ff;
+            outline: none;
+        }
+        .terminal-line {
+            margin-bottom: 6px;
+        }
+        .t-prompt {
+            color: var(--neon-blue);
+            font-weight: bold;
+        }
+        .t-command {
+            color: var(--sari);
+        }
+        .t-output {
+            color: #c3e88d;
+            opacity: 0.95;
+        }
+        .t-input-line {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .terminal-input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #fff;
+            font-family: 'Fira Code', monospace;
+            font-size: 13px;
+            flex-grow: 1;
+        }
+
+        .devops-dashboard {
+            background: rgba(3, 10, 22, 0.7);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 25px;
+            font-family: 'Fira Code', monospace;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .devops-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 8px;
+            font-size: 13px;
+            color: var(--neon-blue);
+        }
+
+        .devops-pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: #27c93f;
+            border-radius: 50%;
+            animation: pulse-dot 1.5s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0% { transform: scale(0.9); opacity: 0.6; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(0.9); opacity: 0.6; }
+        }
+
+        .devops-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            text-align: center;
+        }
+
+        .devops-metric {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 10px;
+            border-radius: 6px;
+        }
+
+        .devops-metric span {
+            font-size: 11px;
+            color: var(--gri);
+            display: block;
+        }
+
+        .devops-metric h5 {
+            font-size: 15px;
+            color: var(--sari);
+            margin-top: 4px;
+        }
+
+        .devops-canvas-wrap {
+            height: 60px;
+            position: relative;
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 6px;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        #devops-chart {
+            width: 100%;
+            height: 100%;
+        }
+
+        .sql-sandbox {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            margin-top: 50px;
+        }
+
+        .sql-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 30px;
+            margin-top: 25px;
+        }
+
+        .sql-editor-pane {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .sql-selector {
+            background: #030a16;
+            border: 1px solid var(--glass-border);
+            color: var(--beyaz);
+            padding: 12px;
+            border-radius: 8px;
+            font-family: var(--font-main);
+            font-size: 14px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .sql-selector option {
+            background: #030a16;
+        }
+
+        .sql-textarea-wrap {
+            position: relative;
+            background: #010409;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 15px;
+            font-family: 'Fira Code', monospace;
+        }
+
+        .sql-textarea {
+            width: 100%;
+            height: 80px;
+            background: transparent;
+            border: none;
+            color: #d1f4ff;
+            resize: none;
+            outline: none;
+            font-family: 'Fira Code', monospace;
+            font-size: 14px;
+        }
+
+        .sql-btn-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sql-status {
+            font-size: 12px;
+            font-family: 'Fira Code', monospace;
+            color: #27c93f;
+        }
+
+        .sql-results-pane {
+            background: #010409;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            height: 220px;
+            overflow: auto;
+        }
+
+        .sql-results-pane h5 {
+            font-size: 12px;
+            color: var(--neon-blue);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            font-family: 'Fira Code', monospace;
+        }
+
+        .sql-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Fira Code', monospace;
+            font-size: 12px;
+            color: #d1f4ff;
+        }
+
+        .sql-table th, .sql-table td {
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 8px;
+            text-align: left;
+        }
+
+        .sql-table th {
+            background: rgba(255, 244, 0, 0.05);
+            color: var(--sari);
+        }
+
+        .sql-empty {
+            color: var(--gri);
+            font-style: italic;
+            margin: auto;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        .goals-container {
+            margin-top: 35px;
+        }
+
+        .goal-item {
+            margin-bottom: 20px;
+        }
+
+        .goal-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .goal-title {
+            font-weight: 600;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .goal-percent {
+            color: var(--sari);
+            font-weight: 700;
+        }
+
+        .goal-bar-bg {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .goal-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--sari), var(--neon-blue));
+            border-radius: 4px;
+            width: 0%;
+            transition: width 2s cubic-bezier(0.1, 0.8, 0.1, 1);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+        }
+
+        .skill-box {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .skill-box:hover {
+            transform: translateY(-10px);
+            border-color: var(--neon-blue);
+            box-shadow: 0 15px 30px var(--neon-blue-glow);
+        }
+
+        .skill-box i {
+            font-size: 3.2rem;
+            color: var(--sari);
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .skill-box:hover i {
+            transform: scale(1.1);
+        }
+
+        .skill-box.blue i {
+            color: var(--neon-blue);
+        }
+
+        .skill-box.python i {
+            color: #3776AB;
+        }
+
+        .skill-box h4 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .skill-level-text {
+            color: var(--gri);
+            font-size: 13px;
+            margin-top: 15px;
+            display: block;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 10px;
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .s-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 45px 35px;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .s-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            border-color: var(--sari);
+            box-shadow: 0 20px 40px rgba(255, 244, 0, 0.15);
+        }
+
+        .s-card .icon-wrap {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 244, 0, 0.05);
+            border: 1px solid rgba(255, 244, 0, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            transition: all 0.4s ease;
+        }
+
+        .s-card:hover .icon-wrap {
+            background: var(--sari);
+            color: var(--lacivert-deep);
+            box-shadow: 0 0 20px var(--sari-glow);
+            transform: rotateY(360deg);
+        }
+
+        .s-card .icon-wrap i {
+            font-size: 32px;
+            color: var(--sari);
+            transition: all 0.4s ease;
+        }
+
+        .s-card:hover .icon-wrap i {
+            color: var(--lacivert-deep);
+        }
+
+        .s-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+        }
+
+        .s-card p {
+            color: var(--gri);
+            font-size: 14px;
+        }
+
+        .port-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+
+        .p-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .p-card:hover {
+            transform: translateY(-15px);
+            border-color: var(--neon-blue);
+            box-shadow: 0 25px 45px rgba(0, 240, 255, 0.2);
+        }
+
+        .p-img {
+            height: 280px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .gym-mock {
+            background: linear-gradient(135deg, #09152a 0%, #030a16 100%);
+            border-bottom: 1px solid rgba(255, 244, 0, 0.1);
+        }
+
+        .burger-mock {
+            background: linear-gradient(135deg, #ff4e00 0%, #ec9f05 100%);
+            border-bottom: 1px solid rgba(0, 240, 255, 0.1);
+        }
+
+        .cms-mock {
+            background: linear-gradient(135deg, #0d1b2a 0%, #1b263b 100%);
+            border-bottom: 1px solid rgba(255, 244, 0, 0.1);
+        }
+
+        .auth-mock {
+            background: linear-gradient(135deg, #370617 0%, #6a040f 100%);
+            border-bottom: 1px solid rgba(0, 240, 255, 0.1);
+        }
+
+        .p-img i {
+            font-size: 5rem;
+            color: var(--sari);
+            text-shadow: 0 0 30px var(--sari-glow);
+            transition: transform 0.5s ease;
+        }
+
+        .p-card:hover .p-img i {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        .p-tags {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            gap: 8px;
+            z-index: 5;
+        }
+
+        .p-tag {
+            background: rgba(3, 10, 22, 0.85);
+            border: 1px solid var(--neon-blue);
+            color: var(--neon-blue);
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .p-tag.yellow {
+            border-color: var(--sari);
+            color: var(--sari);
+        }
+
+        .p-info {
+            padding: 35px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .p-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+            color: var(--beyaz);
+        }
+
+        .p-info p {
+            color: var(--gri);
+            font-size: 15px;
+            margin-bottom: 25px;
+        }
+
+        .p-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .p-link {
+            color: var(--beyaz);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .p-link:hover {
+            color: var(--neon-blue);
+            text-shadow: 0 0 8px var(--neon-blue-glow);
+        }
+
+        .p-external-link {
+            background: rgba(255, 244, 0, 0.1);
+            border: 1px solid var(--sari);
+            color: var(--sari);
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .p-external-link:hover {
+            background: var(--sari);
+            color: var(--lacivert-deep);
+            box-shadow: 0 0 10px var(--sari-glow);
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 50px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .contact-info h3 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--sari);
+            letter-spacing: -1px;
+        }
+
+        .contact-info p {
+            color: var(--gri);
+            margin-bottom: 40px;
+            font-size: 16px;
+        }
+
+        .contact-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .c-method {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .c-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(0, 240, 255, 0.05);
+            border: 1px solid var(--neon-blue);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: var(--neon-blue);
+            transition: all 0.3s ease;
+        }
+
+        .c-method:hover .c-icon {
+            background: var(--neon-blue);
+            color: var(--lacivert-deep);
+            box-shadow: 0 0 20px var(--neon-blue-glow);
+            transform: scale(1.05);
+        }
+
+        .c-details h4 {
+            font-size: 13px;
+            color: var(--gri);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .c-details a, .c-details p {
+            font-size: 16px;
+            color: var(--beyaz);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .c-details a:hover {
+            color: var(--sari);
+        }
+
+        .contact-form {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 45px;
+            border-radius: 20px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .form-input {
+            width: 100%;
+            background: rgba(2, 7, 19, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 16px 20px;
+            color: var(--beyaz);
+            font-family: var(--font-main);
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--sari);
+            box-shadow: 0 0 15px rgba(255, 244, 0, 0.15);
+            background: rgba(2, 7, 19, 0.8);
+        }
+
+        .form-label {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gri);
+            pointer-events: none;
+            transition: all 0.3s ease;
+            font-size: 15px;
+        }
+
+        .form-input:focus ~ .form-label,
+        .form-input:not(:placeholder-shown) ~ .form-label {
+            top: -10px;
+            left: 15px;
+            font-size: 12px;
+            color: var(--sari);
+            background: var(--lacivert-light);
+            padding: 2px 10px;
+            border-radius: 5px;
+            border: 1px solid var(--glass-border);
+        }
+
+        textarea.form-input {
+            height: 120px;
+            resize: none;
+        }
+
+        textarea.form-input ~ .form-label {
+            top: 25px;
+        }
+
+        textarea.form-input:focus ~ .form-label,
+        textarea.form-input:not(:placeholder-shown) ~ .form-label {
+            top: -10px;
+        }
+
+        .form-status {
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            display: none;
+        }
+        .form-status.success {
+            background: rgba(39, 201, 63, 0.1);
+            border: 1px solid #27c93f;
+            color: #27c93f;
+        }
+        .form-status.error {
+            background: rgba(255, 95, 86, 0.1);
+            border: 1px solid #ff5f56;
+            color: #ff5f56;
+        }
+
+        /* Presentation Themes */
+        body.theme-terminal {
+            font-family: 'Fira Code', monospace !important;
+            background-color: #010409 !important;
+        }
+        body.theme-terminal * {
+            font-family: 'Fira Code', monospace !important;
+            border-radius: 0px !important;
+            box-shadow: none !important;
+            text-shadow: none !important;
+        }
+        body.theme-terminal .s-card, 
+        body.theme-terminal .p-card,
+        body.theme-terminal .about-card,
+        body.theme-terminal .contact-form,
+        body.theme-terminal .skill-box,
+        body.theme-terminal .sql-sandbox,
+        body.theme-terminal .ai-chat-window {
+            background: #010409 !important;
+            border: 1.5px solid var(--sari) !important;
+        }
+        body.theme-terminal .main-btn {
+            background: transparent !important;
+            border: 1.5px solid var(--sari) !important;
+            color: var(--sari) !important;
+        }
+        body.theme-terminal .main-btn:hover {
+            background: var(--sari) !important;
+            color: #000000 !important;
+        }
+        body.theme-terminal .underline {
+            background: var(--sari) !important;
+            height: 2px !important;
+        }
+        body.theme-terminal .scroll-progress {
+            background: var(--sari) !important;
+        }
+
+        body.theme-minimal {
+            background-color: #0d0e12 !important;
+        }
+        body.theme-minimal .cyber-grid,
+        body.theme-minimal::before {
+            display: none !important;
+        }
+        body.theme-minimal * {
+            box-shadow: none !important;
+            text-shadow: none !important;
+            border-radius: 8px !important;
+        }
+        body.theme-minimal .s-card, 
+        body.theme-minimal .p-card,
+        body.theme-minimal .about-card,
+        body.theme-minimal .contact-form,
+        body.theme-minimal .skill-box,
+        body.theme-minimal .sql-sandbox,
+        body.theme-minimal .ai-chat-window {
+            background: #13151c !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        }
+        body.theme-minimal .main-btn {
+            background: #ffffff !important;
+            color: #000000 !important;
+        }
+        body.theme-minimal .underline {
+            background: rgba(255, 255, 255, 0.2) !important;
+            height: 2px !important;
+        }
+        body.theme-minimal .scroll-progress {
+            background: #ffffff !important;
+        }
+
+        .neon-customizer {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+
+        .customizer-toggle {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: var(--sari);
+            color: var(--lacivert-deep);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            cursor: pointer;
+            box-shadow: 0 0 20px var(--sari-glow);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .customizer-toggle:hover {
+            transform: scale(1.1) rotate(45deg);
+        }
+
+        .customizer-panel {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            background: rgba(5, 17, 36, 0.98);
+            border: 1px solid var(--glass-border);
+            border-radius: 18px;
+            padding: 22px;
+            width: 300px;
+            backdrop-filter: blur(15px);
+            display: none;
+            flex-direction: column;
+            gap: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+        }
+
+        .customizer-panel h4 {
+            font-size: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--sari);
+        }
+
+        .customizer-section {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .customizer-section h5 {
+            font-size: 12px;
+            color: var(--gri);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .theme-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        .theme-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--beyaz);
+            padding: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: left;
+            font-size: 11px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .theme-btn:hover, .theme-btn.active {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--neon-blue);
+        }
+
+        .theme-btn .color-dots {
+            display: flex;
+            gap: 4px;
+        }
+
+        .theme-btn .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .option-button-group {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+        }
+
+        .opt-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--beyaz);
+            padding: 8px 4px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .opt-btn i {
+            font-size: 14px;
+        }
+
+        .opt-btn:hover, .opt-btn.active {
+            background: rgba(0, 240, 255, 0.08);
+            border-color: var(--neon-blue);
+            color: var(--neon-blue);
+        }
+
+        .sound-toggle-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 100px;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: rgba(5, 17, 36, 0.85);
+            border: 1px solid var(--glass-border);
+            color: var(--sari);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(255, 244, 0, 0.2);
+        }
+
+        .sound-toggle-btn:hover {
+            transform: scale(1.05);
+            border-color: var(--sari);
+            box-shadow: 0 0 15px var(--sari-glow);
+        }
+
+        /* Yapay Zeka Siber Asistan Widget Tasarımı */
+        .ai-assistant-widget {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            z-index: 1000;
+            font-family: var(--font-main);
+        }
+
+        .ai-toggle-btn {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--neon-blue), #00aeff);
+            color: var(--lacivert-deep);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 0 20px var(--neon-blue-glow);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        .ai-toggle-btn::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid var(--neon-blue);
+            animation: ai-pulse 2s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes ai-pulse {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.4); opacity: 0; }
+        }
+
+        .ai-toggle-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px var(--neon-blue);
+        }
+
+        .ai-chat-window {
+            position: absolute;
+            bottom: 70px;
+            left: 0;
+            width: 360px;
+            height: 500px;
+            background: rgba(5, 17, 36, 0.95);
+            border: 1px solid var(--neon-blue);
+            border-radius: 20px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 15px 40px rgba(0, 240, 255, 0.25);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .ai-chat-header {
+            background: rgba(13, 35, 71, 0.8);
+            border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .ai-header-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .ai-status-dot {
+            width: 8px;
+            height: 8px;
+            background: #27c93f;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #27c93f;
+        }
+
+        .ai-chat-header h4 {
+            font-size: 15px;
+            color: var(--beyaz);
+            font-weight: 700;
+        }
+
+        .ai-chat-header span {
+            font-size: 11px;
+            color: var(--neon-blue);
+            font-family: 'Fira Code', monospace;
+        }
+
+        .ai-close-btn {
+            color: var(--gri);
+            cursor: pointer;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+
+        .ai-close-btn:hover {
+            color: var(--neon-blue);
+        }
+
+        .ai-chat-messages {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .ai-message {
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 15px;
+            font-size: 13px;
+            line-height: 1.5;
+            animation: msg-fade 0.3s ease;
+        }
+
+        @keyframes msg-fade {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .ai-message.bot {
+            background: rgba(13, 35, 71, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            color: #d1f4ff;
+            align-self: flex-start;
+            border-bottom-left-radius: 2px;
+        }
+
+        .ai-message.user {
+            background: var(--neon-blue);
+            color: var(--lacivert-deep);
+            align-self: flex-end;
+            border-bottom-right-radius: 2px;
+            font-weight: 500;
+        }
+
+        /* Yapay Zeka Yazıyor Animasyonu */
+        .ai-loading-bubble {
+            display: none;
+            align-self: flex-start;
+            background: rgba(13, 35, 71, 0.5);
+            border: 1px solid rgba(0, 240, 255, 0.1);
+            padding: 12px 18px;
+            border-radius: 15px;
+            border-bottom-left-radius: 2px;
+        }
+
+        .ai-loading-dots {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+            height: 10px;
+        }
+
+        .ai-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--neon-blue);
+            border-radius: 50%;
+            animation: ai-bounce 1.4s infinite ease-in-out both;
+        }
+
+        .ai-dot:nth-child(1) { animation-delay: -0.32s; }
+        .ai-dot:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes ai-bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+
+        .ai-quick-questions {
+            padding: 0 20px 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .ai-quick-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 240, 255, 0.15);
+            color: var(--neon-blue);
+            padding: 6px 12px;
+            border-radius: 50px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .ai-quick-btn:hover {
+            background: rgba(0, 240, 255, 0.1);
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 10px var(--neon-blue-glow);
+        }
+
+        .ai-chat-input-area {
+            border-top: 1px solid rgba(0, 240, 255, 0.2);
+            padding: 15px 20px;
+            display: flex;
+            gap: 10px;
+            background: rgba(2, 7, 19, 0.5);
+        }
+
+        .ai-chat-input {
+            flex-grow: 1;
+            background: rgba(2, 7, 19, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            padding: 10px 20px;
+            color: var(--beyaz);
+            font-family: var(--font-main);
+            font-size: 13px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .ai-chat-input:focus {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 10px var(--neon-blue-glow);
+        }
+
+        .ai-send-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--neon-blue);
+            color: var(--lacivert-deep);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .ai-send-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px var(--neon-blue);
+        }
+
+        .project-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2000;
+            background: rgba(2, 7, 19, 0.9);
+            backdrop-filter: blur(10px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-content {
+            background: var(--lacivert);
+            border: 1px solid var(--sari);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 0 50px rgba(255, 244, 0, 0.15);
+            padding: 40px;
+            transform: scale(0.9);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 24px;
+            color: var(--gri);
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--sari);
+        }
+
+        .modal-title {
+            color: var(--sari);
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 244, 0, 0.2);
+            padding-bottom: 15px;
+        }
+
+        .modal-block {
+            background: rgba(3, 10, 22, 0.5);
+            border-left: 3px solid var(--neon-blue);
+            padding: 20px;
+            border-radius: 0 10px 10px 0;
+            margin-bottom: 25px;
+            font-family: 'Fira Code', monospace;
+            font-size: 13px;
+            overflow-x: auto;
+        }
+
+        .modal-block h5 {
+            font-family: var(--font-heading);
+            color: var(--beyaz);
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        footer {
+            background: var(--lacivert-deep);
+            padding: 50px 8% 40px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 244, 0, 0.05);
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .social-btn {
+            width: 50px;
+            height: 50px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--beyaz);
+            font-size: 20px;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .social-btn:hover {
+            background: var(--sari);
+            color: var(--lacivert-deep);
+            box-shadow: 0 0 15px var(--sari-glow);
+            transform: translateY(-5px) rotate(360deg);
+        }
+
+        .footer-logo {
+            font-family: var(--font-heading);
+            font-size: 24px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .footer-logo span {
+            color: var(--sari);
+        }
+
+        .copyright {
+            color: var(--gri);
+            font-size: 14px;
+        }
+
+        @media (max-width: 1024px) {
+            .hero h1 { font-size: 3.6rem; }
+            .about-grid, .contact-container {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+            .service-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .port-grid {
+                grid-template-columns: 1fr;
+            }
+            .ai-chat-window {
+                width: 320px;
+                height: 450px;
+            }
+            .sql-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar { padding: 20px 5%; }
+            .nav-right { gap: 10px; }
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: rgba(2, 7, 19, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                justify-content: center;
+                gap: 35px;
+                transition: 0.5s ease;
+                z-index: 999;
+            }
+            .nav-links.active { left: 0; }
+            .menu-toggle { display: flex; }
+            .menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
+            .menu-toggle.active span:nth-child(2) { opacity: 0; }
+            .menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -7px); }
+            .hero h1 { font-size: 2.6rem; }
+            .hero p { font-size: 1.1rem; }
+            .hero-btns { flex-direction: column; gap: 15px; }
+            .main-btn { width: 100%; justify-content: center}
+            .secondary-btn { width: 100%; justify-content: center; }
+            .service-grid { grid-template-columns: 1fr; }
+            .section-title { font-size: 2.4rem; }
+            .contact-form { padding: 25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="scroll-progress" id="progress-bar"></div>
+
+    <div class="cyber-grid"></div>
+    <canvas id="bg-canvas"></canvas>
+
+    <header id="header">
+        <nav class="navbar">
+            <a href="#home" class="logo">EGE<span>SÜL</span></a>
+            <div class="nav-right">
+                <!-- GLOBAL MULTILINGUAL LANGUAGE SELECTOR -->
+                <div class="lang-selector">
+                    <span onclick="setLanguage('tr')" id="lang-tr" class="lang-btn active">TR</span>
+                    <span onclick="setLanguage('en')" id="lang-en" class="lang-btn">EN</span>
+                    <span onclick="setLanguage('de')" id="lang-de" class="lang-btn">DE</span>
+                </div>
+                <div class="menu-toggle" id="mobile-menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home" class="nav-item active" data-i18n="nav_home">Anasayfa</a></li>
+                <li><a href="#hakkimda" class="nav-item" data-i18n="nav_about">Hakkımda</a></li>
+                <li><a href="#yetenekler" class="nav-item" data-i18n="nav_skills">Yetenekler</a></li>
+                <li><a href="#hizmetler" class="nav-item" data-i18n="nav_services">Hizmetler</a></li>
+                <li><a href="#portfolyo" class="nav-item" data-i18n="nav_portfolio">Portfolyo</a></li>
+                <li><a href="#iletisim" class="nav-item" data-i18n="nav_contact">İletişim</a></li>
+                <li><a href="https://github.com/egesul" target="_blank" class="github-link"><i class="fab fa-github"></i> GitHub</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HERO ANASAYFA -->
+    <section id="home" class="portfolio-section hero">
+        <div class="hero-content">
+            <h1 data-aos="fade-down" data-aos-duration="1000">
+                <span data-i18n="hero_title_1">Geleceğin Teknolojisini,</span> <br>
+                <span class="yellow-text" id="typed"></span>
+            </h1>
+            <p data-aos="fade-up" data-aos-delay="400" data-i18n="hero_desc">C# & .NET Backend | SQL Veritabanı Mimarisi | Web Geliştirme</p>
+            <div class="hero-btns" data-aos="zoom-in" data-aos-delay="700">
+                <a href="#portfolyo" class="main-btn"><span data-i18n="hero_btn_projects">Projelerimi Gör</span> <i class="fas fa-arrow-right"></i></a>
+                <a href="#iletisim" class="secondary-btn"><span data-i18n="hero_btn_contact">İletişime Geç</span> <i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="hakkimda" class="portfolio-section">
+        <div class="section-header">
+            <h2 class="section-title" data-i18n="about_title">Hakkımda & <span>Vizyon</span></h2>
+            <div class="underline"></div>
+        </div>
+        
+        <div class="about-grid">
+            <div>
+                <div class="terminal">
+                    <div class="terminal-header">
+                        <div class="terminal-buttons">
+                            <span class="t-btn red"></span>
+                            <span class="t-btn yellow"></span>
+                            <span class="t-btn green"></span>
+                        </div>
+                        <div class="terminal-title" id="terminal-title-text" data-i18n="about_terminal_title">guest@egesul.sh (Komut yazabilirsiniz: help)</div>
+                    </div>
+                    <div class="terminal-body" id="terminal-content" tabindex="0">
+                        <div class="terminal-line"><span class="t-prompt">guest@egesul:~$</span> <span class="t-command">whoami</span></div>
+                        <div class="terminal-line t-output" id="terminal-whoami-out">"Ege Sül - Kararlı, hedefleri olan Creative Full-Stack Geliştirici"</div>
+                        <div class="terminal-line"><span class="t-prompt">guest@egesul:~$</span> <span class="t-command">cat vision_2026.json</span></div>
+                        <div class="terminal-line t-output">
+                            { <br>
+                            &nbsp;&nbsp;"<span data-i18n="terminal_json_focus">odak_alani</span>": "C#/.NET Core Enterprise Architecture", <br>
+                            &nbsp;&nbsp;"<span data-i18n="terminal_json_goal">hedef</span>": "Finansal Özgürlük ve Yüksek Yaşam Standartları", <br>
+                            &nbsp;&nbsp;"<span data-i18n="terminal_json_discipline">disiplin</span>": "Zaman Yönetimi, Yazılım Standartları ve Akademik Gelişim" <br>
+                            }
+                        </div>
+                        <div class="terminal-line" id="last-terminal-line"><span class="t-prompt">guest@egesul:~$</span> <span class="t-command">help</span></div>
+                        <div class="terminal-line t-output" id="terminal-help-out">Kullanılabilir Komutlar: about, skills, goals, clear</div>
+                        
+                        <div class="t-input-line">
+                            <span class="t-prompt">guest@egesul:~$</span>
+                            <input type="text" id="terminal-input" class="terminal-input" autocomplete="off" autofocus>
+                        </div>
+                    </div>
+                </div>
+                <p style="text-align: center; margin-top: 10px; font-size: 12px; color: var(--gri);" data-i18n="about_terminal_hint">
+                    <i class="fas fa-keyboard"></i> Terminale tıklayıp klavyenizle komut gönderebilirsiniz.
+                </p>
+
+                <div class="devops-dashboard">
+                    <div class="devops-header">
+                        <span><i class="fas fa-server"></i> <span data-i18n="about_devops_title">API SUNUCU SAĞLIĞI & DEVOPS AKTİF</span></span>
+                        <div style="display:flex; align-items:center; gap:6px;">
+                            <span style="font-size:11px;color:#27c93f;" data-i18n="about_devops_conn">CONNECTED</span>
+                            <div class="devops-pulse-dot"></div>
+                        </div>
+                    </div>
+                    <div class="devops-grid">
+                        <div class="devops-metric">
+                            <span data-i18n="about_devops_latency">Ağ Latency</span>
+                            <h5 id="latency-val">12 ms</h5>
+                        </div>
+                        <div class="devops-metric">
+                            <span data-i18n="about_devops_cpu">CPU Yükü</span>
+                            <h5 id="cpu-val">24%</h5>
+                        </div>
+                        <div class="devops-metric">
+                            <span data-i18n="about_devops_redis">Redis Hit-Rate</span>
+                            <h5>94.2%</h5>
+                        </div>
+                    </div>
+                    <div class="devops-canvas-wrap">
+                        <canvas id="devops-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="about-card">
+                <h3 data-i18n="about_sub_title">Sınırları Zorlayan Çözümler</h3>
+                <p data-i18n="about_bio_1">Muğla'da yaşayan, 13 Eylül 2006 doğumlu bir bilgisayar programcılığı öğrencisiyim. Benim için kodlama bir meslek değil; finansal özgürlüğümü kazanmak, hayat standartlarımı yükseltmek ve geleceği bugünden inşa etmek için bir araçtır.</p>
+                <p data-i18n="about_bio_2">Akademik alanda kendimi sürekli zorlayarak YKS mühendislik geçiş hedeflerime odaklanırken, teknoloji dünyasında ise kurumsal backend sistem mimarilerine ve temiz kod (Clean Code) prensiplerine odaklanıyorum.</p>
+                
+                <div class="goals-container">
+                    <div class="goal-item">
+                        <div class="goal-info">
+                            <span class="goal-title"><i class="fab fa-microsoft"></i> <span data-i18n="about_goal_1">.NET Core Mimarisi & Backend</span></span>
+                            <span class="goal-percent">%90</span>
+                        </div>
+                        <div class="goal-bar-bg">
+                            <div class="goal-bar-fill" data-percent="90"></div>
+                        </div>
+                    </div>
+                    <div class="goal-item">
+                        <div class="goal-info">
+                            <span class="goal-title"><i class="fas fa-brain"></i> <span data-i18n="about_goal_2">Algoritmalar & Veritabanı Optimizasyonu</span></span>
+                            <span class="goal-percent">%85</span>
+                        </div>
+                        <div class="goal-bar-bg">
+                            <div class="goal-bar-fill" data-percent="85"></div>
+                        </div>
+                    </div>
+                    <div class="goal-item">
+                        <div class="goal-info">
+                            <span class="goal-title"><i class="fas fa-code"></i> <span data-i18n="about_goal_3">Temiz Kod Standartları (Clean Code)</span></span>
+                            <span class="goal-percent">%95</span>
+                        </div>
+                        <div class="goal-bar-bg">
+                            <div class="goal-bar-fill" data-percent="95"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS SECTION -->
+    <section id="yetenekler" class="portfolio-section">
+        <div class="section-header">
+            <h2 class="section-title" data-i18n="skills_title">Bildiğim & <span>Öğrendiğim Teknolojiler</span></h2>
+            <div class="underline"></div>
+        </div>
+        
+        <div class="skills-grid">
+            <div class="skill-box" data-aos="fade-up" data-aos-delay="100">
+                <i class="fab fa-microsoft"></i>
+                <h4>C# / .NET Core</h4>
+                <p data-i18n="skills_desc_cs">Kurumsal seviyede backend mimarileri, Web API, LINQ ve Entity Framework Core entegrasyonları.</p>
+                <span class="skill-level-text" data-i18n="skills_level_advanced">Aktif / İleri Düzey</span>
+            </div>
+            <div class="skill-box blue" data-aos="fade-up" data-aos-delay="200">
+                <i class="fas fa-database"></i>
+                <h4>MS SQL Server</h4>
+                <p data-i18n="skills_desc_sql">İlişkisel veritabanı tasarımı, performanslı sorgu yazımı, T-SQL ve indeksleme mekanizmaları.</p>
+                <span class="skill-level-text" data-i18n="skills_level_advanced">Aktif / İleri Düzey</span>
+            </div>
+            <div class="skill-box python" data-aos="fade-up" data-aos-delay="300">
+                <i class="fab fa-python"></i>
+                <h4>Python</h4>
+                <p data-i18n="skills_desc_py">Yapay zeka modelleri, veri analitiği, scripting ve otomasyon araçları geliştirmek için Python ekosistemi.</p>
+                <span class="skill-level-text" data-i18n="skills_level_learning">Yeni Öğreniliyor / Aktif</span>
+            </div>
+            <div class="skill-box" data-aos="fade-up" data-aos-delay="400">
+                <i class="fab fa-js"></i>
+                <h4>JavaScript (ES6+)</h4>
+                <p data-i18n="skills_desc_js">Asenkron programlama, DOM manipülasyonu, Canvas API, modern dinamik web arayüzleri.</p>
+                <span class="skill-level-text" data-i18n="skills_level_developing">Geliştiriliyor</span>
+            </div>
+            <div class="skill-box blue" data-aos="fade-up" data-aos-delay="500">
+                <i class="fab fa-wordpress"></i>
+                <h4>WordPress & Elementor</h4>
+                <p data-i18n="skills_desc_wp">Özelleştirilmiş kurumsal temalar, dinamik sayfa tasarımları ve performans optimizasyonları.</p>
+                <span class="skill-level-text" data-i18n="skills_level_project">Proje Deneyimli</span>
+            </div>
+        </div>
+
+        <!-- SQL SANDBOX -->
+        <div class="sql-sandbox" data-aos="fade-up">
+            <h3 class="section-title" style="font-size:1.8rem;"><i class="fas fa-terminal"></i> <span data-i18n="sql_title">İnteraktif SQL Sandbox & Çalıştırıcı</span></h3>
+            <p style="color: var(--gri); font-size:14px; margin-top:10px;" data-i18n="sql_desc">Aşağıdan hazır siber SQL sorgularından birini seçebilir veya kurgusal SELECT sorgunu yazarak tarayıcı içi çalışan veritabanını test edebilirsin.</p>
+            
+            <div class="sql-layout">
+                <div class="sql-editor-pane">
+                    <select class="sql-selector" id="sql-query-select" onchange="loadSelectedSqlQuery()">
+                        <option value="custom" data-i18n="sql_opt_custom">-- Kendi Sorgunu Yaz --</option>
+                        <option value="get_all_members">SELECT * FROM GymMembers;</option>
+                        <option value="get_active_members">SELECT * FROM GymMembers WHERE MembershipStatus = 'Aktif';</option>
+                        <option value="get_cached_posts">SELECT * FROM OzanCmsPosts;</option>
+                        <option value="get_microservice_logs">SELECT * FROM SecurityGatewayLogs;</option>
+                    </select>
+
+                    <div class="sql-textarea-wrap">
+                        <textarea class="sql-textarea" id="sql-input-box" spellcheck="false">SELECT * FROM GymMembers;</textarea>
+                    </div>
+
+                    <div class="sql-btn-row">
+                        <span class="sql-status" id="sql-execution-status" data-i18n="sql_status_ready">Sistem Hazır.</span>
+                        <button class="main-btn" style="padding:10px 25px; font-size:14px;" onclick="runSimulatedSqlQuery()"><span data-i18n="sql_btn_run">Sorguyu Çalıştır</span> <i class="fas fa-play"></i></button>
+                    </div>
+                </div>
+
+                <div class="sql-results-pane" id="sql-output-pane">
+                    <h5>SQL_RESULT_PANE</h5>
+                    <div class="sql-empty" id="sql-empty-state" data-i18n="sql_empty_state">Henüz sorgu çalıştırılmadı. Sorguyu çalıştırmak için butona bas.</div>
+                    <table class="sql-table" id="sql-results-table" style="display:none;">
+                        <thead id="sql-thead"></thead>
+                        <tbody id="sql-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section id="hizmetler" class="portfolio-section">
+        <div class="section-header">
+            <h2 class="section-title" data-i18n="services_title">Uzmanlık <span>Alanlarım</span></h2>
+            <div class="underline"></div>
+        </div>
+        
+        <div class="service-grid">
+            <div class="s-card" data-aos="zoom-in" data-aos-delay="100">
+                <div class="icon-wrap">
+                    <i class="fas fa-code"></i>
+                </div>
+                <h3 data-i18n="services_card_1_title">Backend Geliştirme</h3>
+                <p data-i18n="services_card_1_desc">C#/.NET Core kullanarak yüksek performanslı API’ler, katmanlı kurumsal backend mimarileri ve güvenli veritabanı entegrasyonları kuruyorum.</p>
+            </div>
+            <div class="s-card" data-aos="zoom-in" data-aos-delay="200">
+                <div class="icon-wrap">
+                    <i class="fas fa-plug"></i>
+                </div>
+                <h3 data-i18n="services_card_2_title">Sistem & API Entegrasyonu</h3>
+                <p data-i18n="services_card_2_desc">OzanCMS gibi headless CMS kurguları ve üçüncü parti REST API'lerin mikroservis mimarilerine dinamik olarak entegre edilmesini sağlıyorum.</p>
+            </div>
+            <div class="s-card" data-aos="zoom-in" data-aos-delay="300">
+                <div class="icon-wrap">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3 data-i18n="services_card_3_title">Yapay Zeka (AI) Entegrasyonu</h3>
+                <p data-i18n="services_card_3_desc">Gemini LLM modelleri ve siber asistan arayüzleri gibi yapay zeka çözümlerini web platformlarına entegre ederek akıllı sistemler tasarlıyorum.</p>
+            </div>
+            <div class="s-card" data-aos="zoom-in" data-aos-delay="400">
+                <div class="icon-wrap">
+                    <i class="fas fa-server"></i>
+                </div>
+                <h3 data-i18n="services_card_4_title">Veritabanı Analizi & Optimizasyon</h3>
+                <p data-i18n="services_card_4_desc">SQL Server üzerinde sorgu optimizasyonu, ilişkisel veritabanı modelleme, veri tutarlılığı ve performans odaklı indeksleme yönetiyorum.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PORTFOLIO SECTION -->
+    <section id="portfolyo" class="portfolio-section">
+        <div class="section-header">
+            <h2 class="section-title" data-i18n="portfolio_title">Öne Çıkan <span>Projelerim</span></h2>
+            <div class="underline"></div>
+        </div>
+        
+        <div class="port-grid">
+            <!-- PROJE 1: GYM MANAGER -->
+            <div class="p-card" data-aos="fade-right" onclick="openProjectModal('gym')">
+                <div class="p-img gym-mock">
+                    <div class="p-tags">
+                        <span class="p-tag yellow">C#</span>
+                        <span class="p-tag">.NET Core</span>
+                        <span class="p-tag">MS SQL</span>
+                    </div>
+                    <i class="fas fa-dumbbell"></i>
+                </div>
+                <div class="p-info">
+                    <div>
+                        <h3 data-i18n="portfolio_p1_title">Gym Manager (SaaS)</h3>
+                        <p data-i18n="portfolio_p1_desc">Spor salonlarının üye kayıtlarını, ödeme takibini ve antrenman çizelgelerini yöneten performans odaklı C# / SQL tabanlı veritabanı otomasyonu.</p>
+                    </div>
+                    <div class="p-actions">
+                        <span class="p-link"><span data-i18n="portfolio_btn_details">Teknik Detayları Gör</span> <i class="fas fa-code"></i></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PROJE 2: BURGER HOUSE -->
+            <div class="p-card" data-aos="fade-left" onclick="openProjectModal('burger')">
+                <div class="p-img burger-mock">
+                    <div class="p-tags">
+                        <span class="p-tag yellow">JS</span>
+                        <span class="p-tag" data-i18n="portfolio_p2_tag">Sipariş Akışı</span>
+                    </div>
+                    <i class="fas fa-hamburger"></i>
+                </div>
+                <div class="p-info">
+                    <div>
+                        <h3 data-i18n="portfolio_p2_title">Burger House</h3>
+                        <p data-i18n="portfolio_p2_desc">Kullanıcı dostu asenkron arayüzü ile dinamik sepet ekleme, mutfak sipariş sırası ve anlık fiyat hesaplama sunan modern sipariş otomasyonu.</p>
+                    </div>
+                    <div class="p-actions">
+                        <span class="p-link"><span data-i18n="portfolio_btn_details">Teknik Detayları Gör</span> <i class="fas fa-code"></i></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PROJE 3: CMS PORTAL CLIENT -->
+            <div class="p-card" data-aos="fade-right" onclick="openProjectModal('cms')">
+                <div class="p-img cms-mock">
+                    <div class="p-tags">
+                        <span class="p-tag yellow">.NET Core</span>
+                        <span class="p-tag">Redis</span>
+                        <span class="p-tag">CMS API</span>
+                    </div>
+                    <i class="fas fa-cubes"></i>
+                </div>
+                <div class="p-info">
+                    <div>
+                        <h3 data-i18n="portfolio_p3_title">CMS Portal Client</h3>
+                        <p data-i18n="portfolio_p3_desc">CMS tabanlı headless sistemler için geliştirilmiş, Redis önbellekleme (caching) mekanizmalı dinamik içerik yönetim entegrasyonu.</p>
+                    </div>
+                    <div class="p-actions">
+                        <span class="p-link"><span data-i18n="portfolio_btn_details">Teknik Detayları Gör</span> <i class="fas fa-code"></i></span>
+                        <a href="https://ege.ozancms.com/" target="_blank" class="p-external-link" onclick="event.stopPropagation()"><span data-i18n="portfolio_btn_visit">Siteyi Gez</span> <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PROJE 4: CYBERAUTH MIDDLEWARE -->
+            <div class="p-card" data-aos="fade-left" onclick="openProjectModal('auth')">
+                <div class="p-img auth-mock">
+                    <div class="p-tags">
+                        <span class="p-tag yellow">C# Middleware</span>
+                        <span class="p-tag">JWT</span>
+                        <span class="p-tag">API Gateway</span>
+                    </div>
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="p-info">
+                    <div>
+                        <h3 data-i18n="portfolio_p4_title">CyberAuth Middleware</h3>
+                        <p data-i18n="portfolio_p4_desc">Mikroservis sistemleri için asenkron JWT token doğrulama, rate-limiting logu ve IP güvenlik protokollerine sahip yüksek performanslı yetkilendirme modülü.</p>
+                    </div>
+                    <div class="p-actions">
+                        <span class="p-link"><span data-i18n="portfolio_btn_details">Teknik Detayları Gör</span> <i class="fas fa-code"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="iletisim" class="portfolio-section">
+        <div class="section-header" data-aos="fade-up">
+            <h2 class="section-title" data-i18n="contact_title">İletişime <span>Geç</span></h2>
+            <div class="underline"></div>
+        </div>
+        
+        <div class="contact-container">
+            <div class="contact-info" data-aos="fade-right">
+                <h3 data-i18n="contact_sub_title">Bir Fikriniz mi Var?</h3>
+                <p data-i18n="contact_desc">Backend sistemleri, SQL optimizasyonları, kurumsal web projeleri veya disiplinli bir siber çalışma arkadaşı arayışınız için benimle doğrudan bağlantı kurabilirsiniz.</p>
+                
+                <div class="contact-methods">
+                    <div class="c-method">
+                        <div class="c-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="c-details">
+                            <h4 data-i18n="contact_method_email">E-posta</h4>
+                            <a href="mailto:contact@egesul.com">contact@egesul.com</a>
+                        </div>
+                    </div>
+                    <div class="c-method">
+                        <div class="c-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="c-details">
+                            <h4 data-i18n="contact_method_location">Lokasyon</h4>
+                            <p data-i18n="contact_location_val">Muğla, Türkiye</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form" data-aos="fade-left">
+                <div id="form-message" class="form-status"></div>
+                <form id="portfolio-form" onsubmit="handleFormSubmit(event)">
+                    <div class="form-group">
+                        <input type="text" id="name" class="form-input" placeholder=" " required autocomplete="off">
+                        <label for="name" class="form-label" id="label-name" data-i18n="contact_form_name">Adınız Soyadınız</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" class="form-input" placeholder=" " required autocomplete="off">
+                        <label for="email" class="form-label" id="label-email" data-i18n="contact_form_email">E-posta Adresiniz</label>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" class="form-input" placeholder=" " required autocomplete="off"></textarea>
+                        <label for="message" class="form-label" id="label-message" data-i18n="contact_form_message">Mesajınız</label>
+                    </div>
+                    <button type="submit" class="main-btn" style="width: 100%; justify-content: center;"><span data-i18n="contact_form_btn">Mesajı Gönder</span> <i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECT MODALS (DYNAMIC MULTILINGUAL DATA SEED) -->
+    <div id="modal-gym" class="project-modal" onclick="closeProjectModalOnBg(event, 'gym')">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeProjectModal('gym'); event.stopPropagation();">&times;</span>
+            <h3 class="modal-title" id="m-gym-title">Gym Manager — Teknik Analiz</h3>
+            <p style="margin-bottom: 20px; color: var(--gri);" id="m-gym-desc">C# ve SQL Server tabanlı, üye veritabanı optimizasyonu ve finansal yönetim süreçlerini otomatize eden kurumsal SaaS otomasyon mimarisi.</p>
+            
+            <div class="modal-block">
+                <h5 id="m-gym-t1">[SQL] Üye Durumu Sorgulama Mimarisi</h5>
+                <code>
+                    SELECT MemberId, FirstName, LastName, EndDate, <br>
+                    CASE WHEN EndDate < GETDATE() THEN 'Pasif' ELSE 'Aktif' END AS MembershipStatus <br>
+                    FROM GymMembers <br>
+                    WHERE IsArchived = 0;
+                </code>
+            </div>
+
+            <div class="modal-block">
+                <h5 id="m-gym-t2">[C#] Entity Framework Core Kayıt Entegrasyonu</h5>
+                <code>
+                    public async Task&lt;bool&gt; RegisterMemberAsync(MemberDto member) { <br>
+                    &nbsp;&nbsp;var newMember = new GymMember { <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;FirstName = member.FirstName, <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;JoinDate = DateTime.Now, <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;EndDate = DateTime.Now.AddMonths(member.DurationMonths) <br>
+                    &nbsp;&nbsp;}; <br>
+                    &nbsp;&nbsp;await _context.GymMembers.AddAsync(newMember); <br>
+                    &nbsp;&nbsp;return await _context.SaveChangesAsync() > 0; <br>
+                    }
+                </code>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-burger" class="project-modal" onclick="closeProjectModalOnBg(event, 'burger')">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeProjectModal('burger'); event.stopPropagation();">&times;</span>
+            <h3 class="modal-title" id="m-burger-title">Burger House — Teknik Analiz</h3>
+            <p style="margin-bottom: 20px; color: var(--gri);" id="m-burger-desc">Kullanıcı sepet hareketlerini hafızada tutup asenkron işlem sırasına alan JavaScript tabanlı sepet/sipariş otomasyonu.</p>
+            
+            <div class="modal-block">
+                <h5 id="m-burger-t1">[JS] Hafıza Sepet Kontrol Fonksiyonu</h5>
+                <code>
+                    const cart = []; <br>
+                    function addToCart(burgerId, quantity) { <br>
+                    &nbsp;&nbsp;const existingItem = cart.find(item => item.id === burgerId); <br>
+                    &nbsp;&nbsp;if(existingItem) { <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;existingItem.qty += quantity; <br>
+                    &nbsp;&nbsp;} else { <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;cart.push({ id: burgerId, qty: quantity, price: 120 }); <br>
+                    &nbsp;&nbsp;} <br>
+                    &nbsp;&nbsp;updateCartUI(); <br>
+                    }
+                </code>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-cms" class="project-modal" onclick="closeProjectModalOnBg(event, 'cms')">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeProjectModal('cms'); event.stopPropagation();">&times;</span>
+            <h3 class="modal-title" id="m-cms-title">CMS Client — Teknik Analiz</h3>
+            <p style="margin-bottom: 20px; color: var(--gri);" id="m-cms-desc">Dinamik CMS içeriğinin Redis MemoryCache katmanından asenkron olarak sorgulanması ve HTTP isteklerinin optimize edilmesi.</p>
+            
+            <div class="modal-block">
+                <h5 id="m-cms-t1">[C#] Redis Önbellekli Veri İstek Yönetimi</h5>
+                <code>
+                    public async Task&lt;List&lt;PostDto&gt;&gt; GetCachedPostsAsync() { <br>
+                    &nbsp;&nbsp;string cacheKey = "ozancms_posts_ege"; <br>
+                    &nbsp;&nbsp;if (!_cache.TryGetValue(cacheKey, out List&lt;PostDto&gt; posts)) { <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;var response = await _httpClient.GetAsync("https://api.ozancms.com/ege/posts"); <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;if (response.IsSuccessStatusCode) { <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;posts = await response.Content.ReadFromJsonAsync&lt;List&lt;PostDto&gt;&gt;(); <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var cacheOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(10)); <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_cache.Set(cacheKey, posts, cacheOptions); <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;} <br>
+                    &nbsp;&nbsp;} <br>
+                    &nbsp;&nbsp;return posts; <br>
+                    }
+                </code>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-auth" class="project-modal" onclick="closeProjectModalOnBg(event, 'auth')">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeProjectModal('auth'); event.stopPropagation();">&times;</span>
+            <h3 class="modal-title" id="m-auth-title">CyberAuth Middleware — Teknik Analiz</h3>
+            <p style="margin-bottom: 20px; color: var(--gri);" id="m-auth-desc">Mikroservis mimarisinde gelen isteklerin JWT doğrulamalarını yapan ve siber güvenlik katmanı sağlayan asenkron C# ara yazılımı.</p>
+            
+            <div class="modal-block">
+                <h5 id="m-auth-t1">[C#] JWT Bearer Token Doğrulama Middleware</h5>
+                <code>
+                    public async Task InvokeAsync(HttpContext context) { <br>
+                    &nbsp;&nbsp;if (!context.Request.Headers.TryGetValue("Authorization", out var authHeader)) { <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;context.Response.StatusCode = 401; <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;await context.Response.WriteAsync("Erişim Reddedildi: Token Eksik."); <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;return; <br>
+                    &nbsp;&nbsp;} <br>
+                    &nbsp;&nbsp;var token = authHeader.ToString().Split(" ").Last(); <br>
+                    &nbsp;&nbsp;if (!ValidateJwtToken(token)) { <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;context.Response.StatusCode = 403; <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;await context.Response.WriteAsync("Geçersiz Yetki Sınırı."); <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;return; <br>
+                    &nbsp;&nbsp;} <br>
+                    &nbsp;&nbsp;await _next(context); <br>
+                    }
+                </code>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI WIDGET -->
+    <div class="ai-assistant-widget" id="ai-widget">
+        <div class="ai-toggle-btn" id="ai-btn">
+            <i class="fas fa-robot"></i>
+        </div>
+        <div class="ai-chat-window" id="ai-chat">
+            <div class="ai-chat-header">
+                <div class="ai-header-info">
+                    <div class="ai-status-dot"></div>
+                    <div>
+                        <h4 id="ai-header-title">Ege-AI Asistan</h4>
+                        <span>Online | Gemini 2.5</span>
+                    </div>
+                </div>
+                <i class="fas fa-times ai-close-btn" id="ai-close"></i>
+            </div>
+            
+            <div class="ai-chat-messages" id="ai-messages">
+                <div class="ai-message bot" id="ai-welcome-msg">
+                    Selam! Ben Ege Sül'ün özel siber asistanıyım. Ege'nin yeni öğrenmeye başladığı Python yetkinlikleri, CMS/API entegrasyon projeleri veya kurumsal hedefleri hakkında ne bilmek istersin?
+                </div>
+            </div>
+
+            <div class="ai-quick-questions">
+                <button class="ai-quick-btn" id="ai-q1" onclick="sendQuickQuestion(this.innerText)">Ege kimdir?</button>
+                <button class="ai-quick-btn" id="ai-q2" onclick="sendQuickQuestion(this.innerText)">AI & Entegrasyon?</button>
+                <button class="ai-quick-btn" id="ai-q3" onclick="sendQuickQuestion(this.innerText)">C#, SQL, Python?</button>
+            </div>
+
+            <div class="ai-loading-bubble" id="ai-loading">
+                <div class="ai-loading-dots">
+                    <div class="ai-dot"></div>
+                    <div class="ai-dot"></div>
+                    <div class="ai-dot"></div>
+                </div>
+            </div>
+
+            <div class="ai-chat-input-area">
+                <input type="text" class="ai-chat-input" id="ai-input" placeholder="Siber asistana bir soru sor..." autocomplete="off">
+                <button class="ai-send-btn" id="ai-send">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="sound-toggle-btn" id="sound-toggle" onclick="toggleFuturisticSound()" title="Fütüristik Ses Motoru">
+        <i class="fas fa-volume-up"></i>
+    </div>
+
+    <!-- CUSTOMIZER PANEL -->
+    <div class="neon-customizer">
+        <div class="customizer-toggle" id="customizer-btn">
+            <i class="fas fa-cog"></i>
+        </div>
+        <div class="customizer-panel" id="customizer-panel">
+            <h4 data-i18n="panel_title">Siber Kontrol Paneli</h4>
+            
+            <div class="customizer-section">
+                <h5 data-i18n="panel_palette">Renk Paleti</h5>
+                <div class="theme-options">
+                    <button class="theme-btn" id="theme-btn-classic" onclick="changeTheme('classic', this)">
+                        <div class="color-dots"><div class="dot" style="background: #FFF400;"></div><div class="dot" style="background: #00F0FF;"></div></div>
+                        <span data-i18n="palette_classic">Klasik</span>
+                    </button>
+                    <button class="theme-btn" id="theme-btn-matrix" onclick="changeTheme('matrix', this)">
+                        <div class="color-dots"><div class="dot" style="background: #00FF66;"></div><div class="dot" style="background: #0d2347;"></div></div>
+                        <span>Matrix</span>
+                    </button>
+                    <button class="theme-btn" id="theme-btn-sunset" onclick="changeTheme('sunset', this)">
+                        <div class="color-dots"><div class="dot" style="background: #FF3366;"></div><div class="dot" style="background: #e6dc00;"></div></div>
+                        <span data-i18n="palette_volcano">Volkan</span>
+                    </button>
+                    <button class="theme-btn" id="theme-btn-Blood" onclick="changeTheme('Blood', this)">
+                        <div class="color-dots"><div class="dot" style="background: #ff0000;"></div><div class="dot" style="background: #ff7c01;"></div></div>
+                        <span data-i18n="palette_blood">Sanal Kan</span>
+                    </button>
+                    <button class="theme-btn" id="theme-btn-Sky" style="grid-column: span 2;" onclick="changeTheme('Sky', this)">
+                        <div class="color-dots"><div class="dot" style="background: #0055ff;"></div><div class="dot" style="background: #00aeff;"></div></div>
+                        <span data-i18n="palette_sky">Gökyüzü</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="customizer-section">
+                <h5 data-i18n="panel_node">Ağ Eleman Şekli</h5>
+                <div class="option-button-group">
+                    <button class="opt-btn active" id="shape-circle" onclick="changeNodeShape('circle')">
+                        <i class="fas fa-circle"></i> <span data-i18n="node_sphere">Küre</span>
+                    </button>
+                    <button class="opt-btn" id="shape-square" onclick="changeNodeShape('square')">
+                        <i class="fas fa-square"></i> <span data-i18n="node_square">Kare</span>
+                    </button>
+                    <button class="opt-btn" id="shape-star" onclick="changeNodeShape('star')">
+                        <i class="fas fa-star-of-life"></i> <span data-i18n="node_star">Yıldız</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="customizer-section">
+                <h5 data-i18n="panel_mode">Sunum Sistemi</h5>
+                <div class="option-button-group">
+                    <button class="opt-btn active" id="sys-cyber" onclick="changePresentationMode('cyber')">
+                        <i class="fas fa-bolt"></i> <span data-i18n="mode_cyber">Siber Neon</span>
+                    </button>
+                    <button class="opt-btn" id="sys-terminal" onclick="changePresentationMode('terminal')">
+                        <i class="fas fa-terminal"></i> <span>Terminal</span>
+                    </button>
+                    <button class="opt-btn" id="sys-minimal" onclick="changePresentationMode('minimal')">
+                        <i class="fas fa-feather"></i> <span>Minimal</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="https://github.com/egesul" target="_blank" class="social-btn"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com" target="_blank" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="mailto:contact@egesul.com" class="social-btn"><i class="fas fa-envelope"></i></a>
+            </div>
+            <div class="footer-logo">EGE<span>SÜL</span></div>
+            <div class="copyright" id="footer-copyright-text">© 2026 Ege Sül. Tüm Hakları Saklıdır.</div>
+        </div>
+    </footer>
+
+    <!-- JS KÜTÜPHANELERİ -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+
+    <script>
+        // ================= DİL VE ÇEVİRİ ALTYAPISI (TR / EN / DE) =================
+        let currentLanguage = 'tr';
+        
+        const translations = {
+            tr: {
+                nav_home: "Anasayfa",
+                nav_about: "Hakkımda",
+                nav_skills: "Yetenekler",
+                nav_services: "Hizmetler",
+                nav_portfolio: "Portfolyo",
+                nav_contact: "İletişim",
+                hero_title_1: "Geleceğin Teknolojisini,",
+                hero_desc: "C# & .NET Backend | SQL Veritabanı Mimarisi | Web Geliştirme",
+                hero_btn_projects: "Projelerimi Gör",
+                hero_btn_contact: "İletişime Geç",
+                about_title: "Hakkımda & <span>Vizyon</span>",
+                about_terminal_title: "guest@egesul.sh (Komut yazabilirsiniz: help)",
+                about_terminal_hint: "Terminale tıklayıp klavyenizle komut gönderebilirsiniz.",
+                about_devops_title: "API SUNUCU SAĞLIĞI & DEVOPS AKTİF",
+                about_devops_conn: "CONNECTED",
+                about_devops_latency: "Ağ Latency",
+                about_devops_cpu: "CPU Yükü",
+                about_devops_redis: "Redis Hit-Rate",
+                about_sub_title: "Sınırları Zorlayan Çözümler",
+                about_bio_1: "Muğla'da yaşayan, 13 Eylül 2006 doğumlu bir bilgisayar programcılığı öğrencisiyim. Benim için kodlama bir meslek değil; finansal özgürlüğümü kazanmak, hayat standartlarımı yükseltmek ve geleceği bugünden inşa etmek için bir araçtır.",
+                about_bio_2: "Akademik alanda kendimi sürekli zorlayarak YKS mühendislik geçiş hedeflerime odaklanırken, teknoloji dünyasında ise kurumsal backend sistem mimarilerine ve temiz kod (Clean Code) prensiplerine odaklanıyorum.",
+                about_goal_1: ".NET Core Mimarisi & Backend",
+                about_goal_2: "Algoritmalar & Veritabanı Optimizasyonu",
+                about_goal_3: "Temiz Kod Standartları (Clean Code)",
+                skills_title: "Bildiğim & <span>Öğrendiğim Teknolojiler</span>",
+                skills_desc_cs: "Kurumsal seviyede backend mimarileri, Web API, LINQ ve Entity Framework Core entegrasyonları.",
+                skills_desc_sql: "İlişkisel veritabanı tasarımı, performanslı sorgu yazımı, T-SQL ve indeksleme mekanizmaları.",
+                skills_desc_py: "Yapay zeka modelleri, veri analitiği, scripting ve otomasyon araçları geliştirmek için Python ekosistemi.",
+                skills_desc_js: "Asenkron programlama, DOM manipülasyonu, Canvas API, modern dinamik web arayüzleri.",
+                skills_desc_wp: "Özelleştirilmiş kurumsal temalar, dinamik sayfa tasarımları ve performans optimizasyonları.",
+                skills_level_advanced: "Aktif / İleri Düzey",
+                skills_level_learning: "Yeni Öğreniliyor / Aktif",
+                skills_level_developing: "Geliştiriliyor",
+                skills_level_project: "Proje Deneyimli",
+                sql_title: "İnteraktif SQL Sandbox & Çalıştırıcı",
+                sql_desc: "Aşağıdan hazır siber SQL sorgularından birini seçebilir veya kurgusal SELECT sorgunu yazarak tarayıcı içi çalışan veritabanını test edebilirsin.",
+                sql_opt_custom: "-- Kendi Sorgunu Yaz --",
+                sql_status_ready: "Sistem Hazır.",
+                sql_btn_run: "Sorguyu Çalıştır",
+                sql_empty_state: "Henüz sorgu çalıştırılmadı. Sorguyu çalıştırmak için butona bas.",
+                services_title: "Uzmanlık <span>Alanlarım</span>",
+                services_card_1_title: "Backend Geliştirme",
+                services_card_1_desc: "C#/.NET Core kullanarak yüksek performanslı API’ler, katmanlı kurumsal backend mimarileri ve güvenli veritabanı entegrasyonları kuruyorum.",
+                services_card_2_title: "Sistem & API Entegrasyonu",
+                services_card_2_desc: "OzanCMS gibi headless CMS kurguları ve üçüncü parti REST API'lerin mikroservis mimarilerine dinamik olarak entegre edilmesini sağlıyorum.",
+                services_card_3_title: "Yapay Zeka (AI) Entegrasyonu",
+                services_card_3_desc: "Gemini LLM modelleri ve siber asistan arayüzleri gibi yapay zeka çözümlerini web platformlarına entegre ederek akıllı sistemler tasarlıyorum.",
+                services_card_4_title: "Veritabanı Analizi & Optimizasyon",
+                services_card_4_desc: "SQL Server üzerinde sorgu optimizasyonu, ilişkisel veritabanı modelleme, veri tutarlılığı ve performans odaklı indeksleme yönetiyorum.",
+                portfolio_title: "Öne Çıkan <span>Projelerim</span>",
+                portfolio_p1_title: "Gym Manager (SaaS)",
+                portfolio_p1_desc: "Spor salonlarının üye kayıtlarını, ödeme takibini ve antrenman çizelgelerini yöneten performans odaklı C# / SQL tabanlı veritabanı otomasyonu.",
+                portfolio_p2_title: "Burger House",
+                portfolio_p2_desc: "Kullanıcı dostu asenkron arayüzü ile dinamik sepet ekleme, mutfak sipariş sırası ve anlık fiyat hesaplama sunan modern sipariş otomasyonu.",
+                portfolio_p2_tag: "Sipariş Akışı",
+                portfolio_p3_title: "CMS Portal Client",
+                portfolio_p3_desc: "CMS tabanlı headless sistemler için geliştirilmiş, Redis önbellekleme (caching) mekanizmalı dinamik içerik yönetim entegrasyonu.",
+                portfolio_p4_title: "CyberAuth Middleware",
+                portfolio_p4_desc: "Mikroservis sistemleri için asenkron JWT token doğrulama, rate-limiting logu ve IP güvenlik protokollerine sahip yüksek performanslı yetkilendirme modülü.",
+                portfolio_btn_details: "Teknik Detayları Gör",
+                portfolio_btn_visit: "Siteyi Gez",
+                contact_title: "İletişime <span>Geç</span>",
+                contact_sub_title: "Bir Fikriniz mi Var?",
+                contact_desc: "Backend sistemleri, SQL optimizasyonları, kurumsal web projeleri veya disiplinli bir siber çalışma arkadaşı arayışınız için benimle doğrudan bağlantı kurabilirsiniz.",
+                contact_method_email: "E-posta",
+                contact_method_location: "Lokasyon",
+                contact_location_val: "Muğla, Türkiye",
+                contact_form_name: "Adınız Soyadınız",
+                contact_form_email: "E-posta Adresiniz",
+                contact_form_message: "Mesajınız",
+                contact_form_btn: "Mesajı Gönder",
+                panel_title: "Siber Kontrol Paneli",
+                panel_palette: "Renk Paleti",
+                panel_node: "Ağ Eleman Şekli",
+                panel_mode: "Sunum Sistemi",
+                palette_classic: "Klasik",
+                palette_volcano: "Volkan",
+                palette_blood: "Sanal Kan",
+                palette_sky: "Gökyüzü",
+                node_sphere: "Küre",
+                node_square: "Kare",
+                node_star: "Yıldız",
+                mode_cyber: "Siber Neon",
+                terminal_json_focus: "odak_alani",
+                terminal_json_goal: "hedef",
+                terminal_json_discipline: "disiplin"
+            },
+            en: {
+                nav_home: "Home",
+                nav_about: "About Me",
+                nav_skills: "Skills",
+                nav_services: "Services",
+                nav_portfolio: "Portfolio",
+                nav_contact: "Contact",
+                hero_title_1: "Coding Future Technologies",
+                hero_desc: "C# & .NET Backend | SQL Database Architecture | Web Development",
+                hero_btn_projects: "View My Work",
+                hero_btn_contact: "Get In Touch",
+                about_title: "About Me & <span>Vision</span>",
+                about_terminal_title: "guest@egesul.sh (Type commands: help)",
+                about_terminal_hint: "Click on the terminal and send commands with your keyboard.",
+                about_devops_title: "API SERVER HEALTH & DEVOPS ACTIVE",
+                about_devops_conn: "CONNECTED",
+                about_devops_latency: "Network Latency",
+                about_devops_cpu: "CPU Load",
+                about_devops_redis: "Redis Hit-Rate",
+                about_sub_title: "Solutions Pushing Limits",
+                about_bio_1: "Born on September 13, 2006 and living in Muğla, I am a computer programming student. For me, coding is not just a profession; it is a powerful vehicle to gain my financial freedom, elevate my living standards, and build the future today.",
+                about_bio_2: "While constantly pushing academic boundaries to reach my goal of YKS engineering transition, in the tech domain I focus on corporate backend architectures and Clean Code principles.",
+                about_goal_1: ".NET Core Architecture & Backend",
+                about_goal_2: "Algorithms & Database Optimization",
+                about_goal_3: "Clean Code Standards",
+                skills_title: "Technologies I <span>Know & Learn</span>",
+                skills_desc_cs: "Enterprise level backend architectures, Web API, LINQ and Entity Framework Core integrations.",
+                skills_desc_sql: "Relational database design, performant querying, T-SQL and indexing mechanics.",
+                skills_desc_py: "Python ecosystem for AI models, data analytics, scripting and automation tools.",
+                skills_desc_js: "Asynchronous programming, DOM manipulation, Canvas API, modern dynamic web frontends.",
+                skills_desc_wp: "Custom corporate themes, dynamic page structures and performance optimizations.",
+                skills_level_advanced: "Active / Advanced",
+                skills_level_learning: "Learning / Active",
+                skills_level_developing: "Developing",
+                skills_level_project: "Project Experience",
+                sql_title: "Interactive SQL Sandbox & Runner",
+                sql_desc: "Select a prebuilt SQL query below or write your custom SELECT query to test the local database runner in real-time.",
+                sql_opt_custom: "-- Write Your Query --",
+                sql_status_ready: "System Ready.",
+                sql_btn_run: "Execute Query",
+                sql_empty_state: "No query executed yet. Press the button to run the query.",
+                services_title: "Areas of <span>Expertise</span>",
+                services_card_1_title: "Backend Development",
+                services_card_1_desc: "Constructing high-performance APIs, layered enterprise backend architectures, and secure databases using C#/.NET Core.",
+                services_card_2_title: "System & API Integration",
+                services_card_2_desc: "Implementing headless CMS constructs like OzanCMS and integrating third-party REST APIs into microservice architectures.",
+                services_card_3_title: "Yapay Zeka (AI) Integration",
+                services_card_3_desc: "Integrating intelligent LLM features (like Gemini) and cyber assistant interfaces into web applications.",
+                services_card_4_title: "Database Analysis & Tuning",
+                services_card_4_desc: "Handling query optimization, database modeling, data consistency, and high performance indexing on SQL Server.",
+                portfolio_title: "Featured <span>Projects</span>",
+                portfolio_p1_title: "Gym Manager (SaaS)",
+                portfolio_p1_desc: "A performance-focused C# / SQL Server based automation managing registrations, tracking payments, and training programs.",
+                portfolio_p2_title: "Burger House",
+                portfolio_p2_desc: "A modern ordering workflow featuring asynchronous Cart updates, kitchen queue sequences, and live total calculation.",
+                portfolio_p2_tag: "Order Flow",
+                portfolio_p3_title: "CMS Portal Client",
+                portfolio_p3_desc: "A dynamic client integrated with a headless CMS using C# Redis MemoryCaching and asynchronous data fetches.",
+                portfolio_p4_title: "CyberAuth Middleware",
+                portfolio_p4_desc: "A high performance async C# middleware handling JWT verification, rate-limiting, and IP filtering for microservices.",
+                portfolio_btn_details: "View Tech Specs",
+                portfolio_btn_visit: "Visit Project",
+                contact_title: "Get In <span>Touch</span>",
+                contact_sub_title: "Have an Idea?",
+                contact_desc: "Connect with me directly for backend architectures, SQL optimizations, enterprise web apps, or for a highly disciplined cyber colleague.",
+                contact_method_email: "Email",
+                contact_method_location: "Location",
+                contact_location_val: "Mugla, Turkiye",
+                contact_form_name: "Your Name",
+                contact_form_email: "Your Email Address",
+                contact_form_message: "Your Message",
+                contact_form_btn: "Send Message",
+                panel_title: "Cyber Control Panel",
+                panel_palette: "Color Palette",
+                panel_node: "Node Shape",
+                panel_mode: "Presentation Engine",
+                palette_classic: "Classic",
+                palette_volcano: "Volcano",
+                palette_blood: "Sanal Blood",
+                palette_sky: "Skyline",
+                node_sphere: "Sphere",
+                node_square: "Square",
+                node_star: "Star",
+                mode_cyber: "Cyber Neon",
+                terminal_json_focus: "focus_area",
+                terminal_json_goal: "goal",
+                terminal_json_discipline: "discipline"
+            },
+            de: {
+                nav_home: "Startseite",
+                nav_about: "Über mich",
+                nav_skills: "Fähigkeiten",
+                nav_services: "Dienste",
+                nav_portfolio: "Portfolio",
+                nav_contact: "Kontakt",
+                hero_title_1: "Die Technologien von morgen,",
+                hero_desc: "C# & .NET Backend | SQL-Datenbankarchitektur | Webentwicklung",
+                hero_btn_projects: "Projekte ansehen",
+                hero_btn_contact: "Kontakt aufnehmen",
+                about_title: "Über mich & <span>Vision</span>",
+                about_terminal_title: "guest@egesul.sh (Befehle eingeben: help)",
+                about_terminal_hint: "Klicken Sie auf das Terminal, um Befehle über Ihre Tastatur zu senden.",
+                about_devops_title: "API-SERVERSTATUS & DEVOPS AKTIV",
+                about_devops_conn: "CONNECTED",
+                about_devops_latency: "Latenzzeit",
+                about_devops_cpu: "CPU-Auslastung",
+                about_devops_redis: "Redis Hit-Rate",
+                about_sub_title: "Grenzen sprengende Lösungen",
+                about_bio_1: "Ich bin ein am 13. September 2006 geborener Student der Computerprogrammierung, der in Muğla lebt. Für mich ist das Codieren kein Beruf, sondern ein Werkzeug, um finanzielle Freiheit zu erlangen, meinen Lebensstandard zu erhöhen und die Zukunft bereits heute zu gestalten.",
+                about_bio_2: "Während ich meine akademischen Grenzen ständig verschiebe, um mich auf den YKS-Übergang zum Ingenieurstudium vorzubereiten, konzentriere ich mich im Tech-Bereich auf Backend-Systemarchitekturen für Unternehmen und Clean-Code-Prinzipien.",
+                about_goal_1: ".NET Core Architektur & Backend",
+                about_goal_2: "Algorithmen & DB-Optimierung",
+                about_goal_3: "Clean-Code-Standards",
+                skills_title: "Technologien <span>Kennen & Lernen</span>",
+                skills_desc_cs: "Enterprise-Backend-Architekturen, Web-API, LINQ und Entity Framework Core Integrationen.",
+                skills_desc_sql: "Relationales Datenbankdesign, performantes Querying, T-SQL und Indexierungsmechanismen.",
+                skills_desc_py: "Python-Ökosystem für KI-Modelle, Datenanalyse, Skripterstellung und Automatisierungstools.",
+                skills_desc_js: "Asynchrone Programmierung, DOM-Manipulation, Canvas-API, moderne dynamische Web-Frontends.",
+                skills_desc_wp: "Benutzerdefinierte Corporate-Themes, dynamische Seitenstrukturen und Performance-Optimierungen.",
+                skills_level_advanced: "Aktiv / Fortgeschritten",
+                skills_level_learning: "Lernen / Aktiv",
+                skills_level_developing: "In Entwicklung",
+                skills_level_project: "Projekterfahren",
+                sql_title: "Interaktive SQL-Sandbox & Ausführer",
+                sql_desc: "Wählen Sie unten eine vordefinierte SQL-Abfrage aus oder schreiben Sie eine SELECT-Abfrage, um das lokale DB-Modul zu testen.",
+                sql_opt_custom: "-- Eigene Abfrage schreiben --",
+                sql_status_ready: "System bereit.",
+                sql_btn_run: "Abfrage ausführen",
+                sql_empty_state: "Noch keine Abfrage ausgeführt. Klicken Sie auf den Button.",
+                services_title: "Meine <span>Spezialgebiete</span>",
+                services_card_1_title: "Backend-Entwicklung",
+                services_card_1_desc: "Erstellung von Hochleistungs-APIs, vielschichtigen Backend-Architekturen und sicheren Datenbankverbindungen mit C#/.NET Core.",
+                services_card_2_title: "System- & API-Integration",
+                services_card_2_desc: "Implementierung von Headless-CMS-Strukturen wie OzanCMS und die dynamische Integration von REST-APIs.",
+                services_card_3_title: "Yapay Zeka (KI) Integration",
+                services_card_3_desc: "Integration intelligenter LLM-Modelle (wie Gemini) und Cyber-Assistenten in komplexe Webanwendungen.",
+                services_card_4_title: "Datenbank-Feintuning",
+                services_card_4_desc: "Abfrageoptimierung, relationale Modellierung, Datenkonsistenz und hochperformante Indizierung auf dem SQL-Server.",
+                portfolio_title: "Ausgewählte <span>Projekte</span>",
+                portfolio_p1_title: "Gym Manager (SaaS)",
+                portfolio_p1_desc: "Eine C# / SQL Server-Automatisierung für die Mitgliederverwaltung, Zahlungsverfolgung und Trainingspläne.",
+                portfolio_p2_title: "Burger House",
+                portfolio_p2_desc: "Bestellworkflow mit asynchronen Warenkorb-Updates, Küchenwarteschlangen und Live-Berechnung.",
+                portfolio_p2_tag: "Bestellfluss",
+                portfolio_p3_title: "CMS Portal Client",
+                portfolio_p3_desc: "Ein dynamischer Client für Headless-CMS mit C#-Redis-Caching und asynchronem Content-Fetching.",
+                portfolio_p4_title: "CyberAuth Middleware",
+                portfolio_p4_desc: "Hochleistungs-JWT-Verifizierungs-Middleware in C# mit Rate-Limiting und IP-Sicherheitsprüfungen.",
+                portfolio_btn_details: "Technische Details",
+                portfolio_btn_visit: "Projekt ansehen",
+                contact_title: "Kontakt <span>aufnehmen</span>",
+                contact_sub_title: "Haben Sie eine Idee?",
+                contact_desc: "Kontaktieren Sie mich direkt für Backend-Systeme, SQL-Optimierungen, Web-Apps oder wenn Sie einen disziplinierten Cyber-Kollegen suchen.",
+                contact_method_email: "E-Mail",
+                contact_method_location: "Standort",
+                contact_location_val: "Mugla, Türkei",
+                contact_form_name: "Ihr Name",
+                contact_form_email: "Ihre E-Mail-Adresse",
+                contact_form_message: "Ihre Nachricht",
+                contact_form_btn: "Nachricht senden",
+                panel_title: "Cyber-Kontrollzentrum",
+                panel_palette: "Farbpalette",
+                panel_node: "Knotenform",
+                panel_mode: "Präsentationsmodus",
+                palette_classic: "Klassisch",
+                palette_volcano: "Vulkan",
+                palette_blood: "Cyber-Blut",
+                palette_sky: "Himmellinie",
+                node_sphere: "Kugel",
+                node_square: "Quadrat",
+                node_star: "Stern",
+                mode_cyber: "Cyber Neon",
+                terminal_json_focus: "fokus_bereich",
+                terminal_json_goal: "ziel",
+                terminal_json_discipline: "disziplin"
+            }
+        };
+
+        const modalTranslations = {
+            tr: {
+                gym_title: "Gym Manager — Teknik Analiz",
+                gym_desc: "C# ve SQL Server tabanlı, üye veritabanı optimizasyonu ve finansal yönetim süreçlerini otomatize eden kurumsal SaaS otomasyon mimarisi.",
+                gym_t1: "[SQL] Üye Durumu Sorgulama Mimarisi",
+                gym_t2: "[C#] Entity Framework Core Kayıt Entegrasyonu",
+                
+                burger_title: "Burger House — Teknik Analiz",
+                burger_desc: "Kullanıcı sepet hareketlerini hafızada tutup asenkron işlem sırasına alan JavaScript tabanlı sepet/sipariş otomasyonu.",
+                burger_t1: "[JS] Hafıza Sepet Kontrol Fonksiyonu",
+                
+                cms_title: "CMS Client — Teknik Analiz",
+                cms_desc: "Dinamik CMS içeriğinin Redis MemoryCache katmanından asenkron olarak sorgulanması ve HTTP isteklerinin optimize edilmesi.",
+                cms_t1: "[C#] Redis Önbellekli Veri İstek Yönetimi",
+                
+                auth_title: "CyberAuth Middleware — Teknik Analiz",
+                auth_desc: "Mikroservis mimarisinde gelen isteklerin JWT doğrulamalarını yapan ve siber güvenlik katmanı sağlayan asenkron C# ara yazılımı.",
+                auth_t1: "[C#] JWT Bearer Token Doğrulama Middleware"
+            },
+            en: {
+                gym_title: "Gym Manager — Technical Analysis",
+                gym_desc: "Enterprise SaaS automation architecture based on C# and SQL Server, automating member database optimization and financial management workflows.",
+                gym_t1: "[SQL] Member Status Query Architecture",
+                gym_t2: "[C#] Entity Framework Core Registration Integration",
+                
+                burger_title: "Burger House — Technical Analysis",
+                burger_desc: "JavaScript-based basket and order automation that holds user cart mutations in-memory and handles async kitchen queuing.",
+                burger_t1: "[JS] In-Memory Cart Control Logic",
+                
+                cms_title: "CMS Client — Technical Analysis",
+                cms_desc: "Asynchronous querying of dynamic CMS content from Redis MemoryCache layer, heavily optimizing HTTP requests.",
+                cms_t1: "[C#] Redis Cached Data Flow Management",
+                
+                auth_title: "CyberAuth Middleware — Technical Analysis",
+                auth_desc: "High performance asynchronous C# middleware executing JWT authentication and serving as a security gateway for microservices.",
+                auth_t1: "[C#] JWT Bearer Token Verification Middleware"
+            },
+            de: {
+                gym_title: "Gym Manager — Technische Analyse",
+                gym_desc: "Auf C# und SQL Server basierende SaaS-Automatisierungsarchitektur für Unternehmen, die die Optimierung von Mitgliederdatenbanken automatisiert.",
+                gym_t1: "[SQL] Abfrage-Architektur für den Mitgliederstatus",
+                gym_t2: "[C#] Registrierungs-Schnittstelle mit Entity Framework Core",
+                
+                burger_title: "Burger House — Technische Analyse",
+                burger_desc: "JavaScript-basierte Warenkorb- und Bestellautomatisierung, die asynchrone Küchenwarteschlangen verwaltet.",
+                burger_t1: "[JS] In-Memory Warenkorb-Steuerungsfunktion",
+                
+                cms_title: "CMS Client — Technische Analyse",
+                cms_desc: "Asynchrones Laden dynamischer CMS-Inhalte aus dem Redis MemoryCache-Layer zur Optimierung von HTTP-Anfragen.",
+                cms_t1: "[C#] Redis-Cached Datenfluss-Steuerung",
+                
+                auth_title: "CyberAuth Middleware — Technische Analyse",
+                auth_desc: "Asynchrone C#-Middleware zur JWT-Verifizierung und Bereitstellung eines Sicherheits-Gateways für Mikrodienste.",
+                auth_t1: "[C#] JWT-Bearer-Token Authentifizierungs-Middleware"
+            }
+        };
+
+        const aiTranslations = {
+            tr: {
+                welcome: "Selam! Ben Ege Sül'ün özel siber asistanıyım. Ege'nin yeni öğrenmeye başladığı Python yetkinlikleri, CMS/API entegrasyon projeleri veya kurumsal hedefleri hakkında ne bilmek istersin?",
+                placeholder: "Siber asistana bir soru sor...",
+                q1: "Ege kimdir?",
+                q2: "AI & Entegrasyon?",
+                q3: "C#, SQL, Python?",
+                title: "Ege-AI Asistan",
+                copyright: "© 2026 Ege Sül. Tüm Hakları Saklıdır."
+            },
+            en: {
+                welcome: "Hello! I am Ege Sül's dedicated cyber assistant. What would you like to know about Ege's newly acquired Python skills, CMS/API integration projects, or professional goals?",
+                placeholder: "Ask a question to the cyber assistant...",
+                q1: "Who is Ege?",
+                q2: "AI & Integration?",
+                q3: "C#, SQL, Python?",
+                title: "Ege-AI Assistant",
+                copyright: "© 2026 Ege Sül. All Rights Reserved."
+            },
+            de: {
+                welcome: "Hallo! Ich bin Eges persönlicher Cyber-Assistent. Was möchten Sie über Eges Python-Fähigkeiten, CMS/API-Integrationsprojekte oder Karriereziele erfahren?",
+                placeholder: "Fragen Sie den Assistenten...",
+                q1: "Wer ist Ege?",
+                q2: "KI & Integration?",
+                q3: "C#, SQL, Python?",
+                title: "Ege-KI Assistent",
+                copyright: "© 2026 Ege Sül. Alle Rechte vorbehalten."
+            }
+        };
+
+        function setLanguage(lang) {
+            currentLanguage = lang;
+            localStorage.setItem('ege_portfolio_lang', lang);
+
+            // Update active state in UI
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`lang-${lang}`).classList.add('active');
+
+            // Set document language attribute
+            document.documentElement.setAttribute('lang', lang);
+
+            // Localize text content on static elements
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    // Avoid wiping out inline inner elements like spans inside titles
+                    if (element.tagName === 'H2' && element.classList.contains('section-title')) {
+                        const originalText = translations[lang][key];
+                        element.innerHTML = originalText;
+                    } else {
+                        element.innerText = translations[lang][key];
+                    }
+                }
+            });
+
+            // Localize inputs placeholders & labels
+            const labelsMap = {
+                'label-name': 'contact_form_name',
+                'label-email': 'contact_form_email',
+                'label-message': 'contact_form_message'
+            };
+            for (const [id, translationKey] of Object.entries(labelsMap)) {
+                const label = document.getElementById(id);
+                if (label) label.innerText = translations[lang][translationKey];
+            }
+
+            // Localize SQL sandbox components
+            const executionStatusEl = document.getElementById('sql-execution-status');
+            const emptyStateEl = document.getElementById('sql-empty-state');
+            if (executionStatusEl) executionStatusEl.innerText = translations[lang]['sql_status_ready'];
+            if (emptyStateEl) emptyStateEl.innerText = translations[lang]['sql_empty_state'];
+
+            // Localize Modals Dynamic Content
+            const keys = ['gym', 'burger', 'cms', 'auth'];
+            keys.forEach(k => {
+                const titleEl = document.getElementById(`m-${k}-title`);
+                const descEl = document.getElementById(`m-${k}-desc`);
+                const t1El = document.getElementById(`m-${k}-t1`);
+                const t2El = document.getElementById(`m-${k}-t2`);
+
+                if (titleEl) titleEl.innerText = modalTranslations[lang][`${k}_title`];
+                if (descEl) descEl.innerText = modalTranslations[lang][`${k}_desc`];
+                if (t1El) t1El.innerText = modalTranslations[lang][`${k}_t1`];
+                if (t2El && modalTranslations[lang][`${k}_t2`]) t2El.innerText = modalTranslations[lang][`${k}_t2`];
+            });
+
+            // Localize AI Widget Content
+            const aiHeaderTitle = document.getElementById('ai-header-title');
+            const aiWelcomeMsg = document.getElementById('ai-welcome-msg');
+            const aiInput = document.getElementById('ai-input');
+            const aiQ1 = document.getElementById('ai-q1');
+            const aiQ2 = document.getElementById('ai-q2');
+            const aiQ3 = document.getElementById('ai-q3');
+            const footerCopyright = document.getElementById('footer-copyright-text');
+
+            if (aiHeaderTitle) aiHeaderTitle.innerText = aiTranslations[lang].title;
+            if (aiWelcomeMsg) aiWelcomeMsg.innerText = aiTranslations[lang].welcome;
+            if (aiInput) aiInput.placeholder = aiTranslations[lang].placeholder;
+            if (aiQ1) aiQ1.innerText = aiTranslations[lang].q1;
+            if (aiQ2) aiQ2.innerText = aiTranslations[lang].q2;
+            if (aiQ3) aiQ3.innerText = aiTranslations[lang].q3;
+            if (footerCopyright) footerCopyright.innerText = aiTranslations[lang].copyright;
+
+            // Re-trigger Terminal Commands Outputs based on selected language
+            updateTerminalLocale(lang);
+
+            // Reset and restart Typed.js animation
+            initTyped(lang);
+        }
+
+        function updateTerminalLocale(lang) {
+            const whoamiOut = document.getElementById('terminal-whoami-out');
+            const helpOut = document.getElementById('terminal-help-out');
+            
+            const whoamiTranslations = {
+                tr: '"Ege Sül - Kararlı, hedefleri olan Creative Full-Stack Geliştirici"',
+                en: '"Ege Sül - Determined, goal-oriented Creative Full-Stack Developer"',
+                de: '"Ege Sül - Zielstrebiger, zielorientierter kreativer Full-Stack-Entwickler"'
+            };
+
+            const helpTranslations = {
+                tr: 'Kullanılabilir Komutlar: about, skills, goals, clear',
+                en: 'Available Commands: about, skills, goals, clear',
+                de: 'Verfügbare Befehle: about, skills, goals, clear'
+            };
+
+            if (whoamiOut) whoamiOut.innerText = whoamiTranslations[lang];
+            if (helpOut) helpOut.innerText = helpTranslations[lang];
+        }
+
+        // ================= TYPED.JS CONFIGURATION =================
+        let typedInstance = null;
+        function initTyped(lang) {
+            if (typedInstance) typedInstance.destroy();
+            
+            const typedStrings = {
+                tr: ['Bugünden Kodluyoruz.', 'Modern Çözümler Sunuyoruz.', 'Geleceği İnşa Ediyoruz.'],
+                en: ['Coding from Today.', 'Providing Modern Solutions.', 'Building the Future.'],
+                de: ['Codieren ab heute.', 'Moderne Lösungen anbieten.', 'Die Zukunft gestalten.']
+            };
+
+            typedInstance = new Typed('#typed', {
+                strings: typedStrings[lang],
+                typeSpeed: 60,
+                backSpeed: 40,
+                loop: true,
+                backDelay: 2000
+            });
+        }
+
+        // Initialize AOS animations
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+
+        // Track active navigation bar items using IntersectionObserver
+        const sections = document.querySelectorAll('.portfolio-section');
+        const navItems = document.querySelectorAll('.nav-links a.nav-item');
+        
+        const observerOptions = {
+            root: null,
+            rootMargin: '-20% 0px -60% 0px',
+            threshold: 0
+        };
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const activeId = entry.target.getAttribute('id');
+                    
+                    navItems.forEach(item => {
+                        item.classList.remove('active');
+                        if (item.getAttribute('href') === `#${activeId}`) {
+                            item.classList.add('active');
+                        }
+                    });
+
+                    if (activeId === 'hakkimda') {
+                        animateGoalBars();
+                    }
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => {
+            sectionObserver.observe(section);
+        });
+
+        function animateGoalBars() {
+            document.querySelectorAll('.goal-bar-fill').forEach(bar => {
+                const percent = bar.getAttribute('data-percent');
+                bar.style.width = percent + '%';
+            });
+        }
+
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            const progressBar = document.getElementById('progress-bar');
+            
+            if (window.scrollY > 80) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+
+            const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollPercentage = (window.scrollY / windowHeight) * 100;
+            progressBar.style.width = scrollPercentage + '%';
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            const root = document.documentElement;
+            root.style.setProperty('--mouse-x', `${e.clientX}px`);
+            root.style.setProperty('--mouse-y', `${e.clientY}px`);
+        });
+
+        const mobileMenuBtn = document.getElementById('mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenuBtn.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                mobileMenuBtn.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // ================= FÜTÜRİSTİK SENTEZLENMİŞ SES MOTORU =================
+        let isMuted = true;
+        let audioCtx = null;
+
+        function initAudioContext() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        function toggleFuturisticSound() {
+            isMuted = !isMuted;
+            const btn = document.getElementById('sound-toggle');
+            if (isMuted) {
+                btn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                btn.style.color = '#ff5f56';
+            } else {
+                initAudioContext();
+                btn.innerHTML = '<i class="fas fa-volume-up"></i>';
+                btn.style.color = 'var(--sari)';
+                playSynthBeep(880, 0.08, 'square');
+            }
+        }
+
+        function playSynthBeep(freq, duration, type = 'sine') {
+            if (isMuted || !audioCtx) return;
+            try {
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                
+                gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+                
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch (e) {
+            }
+        }
+
+        // ================= INTERACTIVE TERMINAL =================
+        const terminalContent = document.getElementById('terminal-content');
+        const terminalInput = document.getElementById('terminal-input');
+
+        terminalContent.addEventListener('click', () => {
+            terminalInput.focus();
+        });
+
+        terminalInput.addEventListener('keydown', (e) => {
+            playSynthBeep(Math.random() * 200 + 400, 0.03, 'sine');
+
+            if (e.key === 'Enter') {
+                const rawCommand = terminalInput.value.trim();
+                const command = rawCommand.toLowerCase();
+                
+                if (command === '') return;
+
+                appendTerminalLine(`guest@egesul:~$ ${rawCommand}`, 't-command-echo');
+
+                const localeTerminalData = {
+                    tr: {
+                        help: 'Kullanılabilir Komutlar: about, skills, goals, clear',
+                        about: 'Ege Sül, 13 Eylül 2006 doğumlu. Bilgisayar Programcılığı öğrencisi. Finansal bağımsızlığa ve ileri düzey backend geliştiriciliğe odaklı.',
+                        skills: 'Aktif Teknoloji Havuzu: C#/.NET Core, MS SQL Server, Python (Yeni!), JavaScript (ES6+), WordPress & Elementor.',
+                        goals: 'Gelişim Hedefleri: YKS Akademik dikey geçiş sınavı hazırlığı, C# enterprise sistem mimarileri tasarlamak ve Python yapay zeka entegrasyonu.',
+                        err: `Hata: '${rawCommand}' komutu bulunamadı. Kullanılabilir komutlar için 'help' yazın.`
+                    },
+                    en: {
+                        help: 'Available Commands: about, skills, goals, clear',
+                        about: 'Ege Sül, born on September 13, 2006. Computer Programming student focusing on backend technologies, engineering studies and financial liberty.',
+                        skills: 'Skill Stack: C#/.NET Core, MS SQL Server, Python (Newly learning!), JavaScript (ES6+), WordPress & Elementor.',
+                        goals: 'Aspirations: Transitioning to advanced engineering via YKS prep, architecting corporate enterprise solutions, and AI automation.',
+                        err: `Error: Command '${rawCommand}' not found. Type 'help' for available commands.`
+                    },
+                    de: {
+                        help: 'Verfügbare Befehle: about, skills, goals, clear',
+                        about: 'Ege Sül, geboren am 13. September 2006. Informatikstudent mit Fokus auf Backend-Engineering und technischer Perfektion.',
+                        skills: 'Technologie-Stack: C#/.NET Core, MS SQL Server, Python (In Ausbildung!), JavaScript (ES6+), WordPress & Elementor.',
+                        goals: 'Karriereziele: Ingenieursstudium vorbereiten, C# Enterprise Software-Architekt werden und finanzielle Unabhängigkeit erreichen.',
+                        err: `Fehler: Befehl '${rawCommand}' nicht gefunden. Geben Sie 'help' ein.`
+                    }
+                };
+
+                const currentLocaleData = localeTerminalData[currentLanguage];
+
+                switch (command) {
+                    case 'help':
+                        appendTerminalLine(currentLocaleData.help, 't-output');
+                        break;
+                    case 'about':
+                        appendTerminalLine(currentLocaleData.about, 't-output');
+                        break;
+                    case 'skills':
+                        appendTerminalLine(currentLocaleData.skills, 't-output');
+                        break;
+                    case 'goals':
+                        appendTerminalLine(currentLocaleData.goals, 't-output');
+                        break;
+                    case 'clear':
+                        const lines = terminalContent.querySelectorAll('.terminal-line');
+                        lines.forEach(line => {
+                            if (line.id !== 'last-terminal-line') {
+                                line.remove();
+                            }
+                        });
+                        break;
+                    default:
+                        appendTerminalLine(currentLocaleData.err, 't-error');
+                }
+
+                terminalInput.value = '';
+                terminalContent.scrollTop = terminalContent.scrollHeight;
+                playSynthBeep(600, 0.1, 'triangle');
+            }
+        });
+
+        function appendTerminalLine(text, className) {
+            const newLine = document.createElement('div');
+            newLine.className = 'terminal-line';
+            
+            if (className === 't-command-echo') {
+                newLine.innerHTML = `<span class="t-prompt">guest@egesul:~$</span> <span class="t-command">${text.replace('guest@egesul:~$ ', '')}</span>`;
+            } else if (className === 't-error') {
+                newLine.innerHTML = `<span style="color: #ff5f56; font-weight: bold;">[!]</span> <span style="color: #ff5f56;">${text}</span>`;
+            } else {
+                newLine.innerHTML = `<span class="t-output">${text}</span>`;
+            }
+
+            const inputLine = terminalContent.querySelector('.t-input-line');
+            terminalContent.insertBefore(newLine, inputLine);
+        }
+
+        // ================= INTERACTIVE BACKGROUND CANVAS =================
+        const bgCanvas = document.getElementById('bg-canvas');
+        const bgCtx = bgCanvas.getContext('2d');
+
+        let nodes = [];
+        let packets = [];
+        let mouseNode = { x: null, y: null, radius: 180 };
+        let currentElementShape = 'circle';
+
+        let currentSariColor = '#FFF400';
+        let currentNeonBlueColor = '#00F0FF';
+
+        function resizeCanvas() {
+            bgCanvas.width = window.innerWidth;
+            bgCanvas.height = window.innerHeight;
+            initConstellation();
+        }
+        window.addEventListener('resize', resizeCanvas);
+
+        window.addEventListener('mousemove', (e) => {
+            mouseNode.x = e.clientX;
+            mouseNode.y = e.clientY;
+        });
+
+        window.addEventListener('mouseleave', () => {
+            mouseNode.x = null;
+            mouseNode.y = null;
+        });
+
+        class CyberNode {
+            constructor(layer) {
+                this.x = Math.random() * window.innerWidth;
+                this.y = Math.random() * window.innerHeight;
+                this.baseX = this.x;
+                this.baseY = this.y;
+                this.layer = layer; 
+                
+                if (layer === 1) {
+                    this.radius = Math.random() * 2 + 1;
+                    this.speedX = (Math.random() * 0.2) - 0.1;
+                    this.speedY = (Math.random() * 0.2) - 0.1;
+                    this.alpha = Math.random() * 0.25 + 0.15;
+                } else if (layer === 2) {
+                    this.radius = Math.random() * 3 + 2;
+                    this.speedX = (Math.random() * 0.4) - 0.2;
+                    this.speedY = (Math.random() * 0.4) - 0.2;
+                    this.alpha = Math.random() * 0.4 + 0.25;
+                } else {
+                    this.radius = Math.random() * 4.5 + 3.5;
+                    this.speedX = (Math.random() * 0.6) - 0.3;
+                    this.speedY = (Math.random() * 0.6) - 0.3;
+                    this.alpha = Math.random() * 0.5 + 0.4;
+                }
+                
+                this.vx = 0;
+                this.vy = 0;
+                this.ease = 0.08;
+            }
+
+            draw() {
+                bgCtx.save();
+                bgCtx.fillStyle = currentSariColor;
+                bgCtx.strokeStyle = currentSariColor;
+                bgCtx.globalAlpha = this.alpha;
+                bgCtx.lineWidth = 1;
+                
+                bgCtx.shadowBlur = this.layer === 3 ? 15 : 8;
+                bgCtx.shadowColor = currentSariColor;
+                
+                bgCtx.beginPath();
+                if (currentElementShape === 'circle') {
+                    bgCtx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    bgCtx.fill();
+                } else if (currentElementShape === 'square') {
+                    bgCtx.rect(this.x - this.radius, this.y - this.radius, this.radius * 2, this.radius * 2);
+                    bgCtx.fill();
+                } else if (currentElementShape === 'star') {
+                    bgCtx.moveTo(this.x - this.radius, this.y);
+                    bgCtx.lineTo(this.x + this.radius, this.y);
+                    bgCtx.moveTo(this.x, this.y - this.radius);
+                    bgCtx.lineTo(this.x, this.y + this.radius);
+                    bgCtx.stroke();
+                }
+                
+                bgCtx.restore();
+            }
+
+            update() {
+                this.baseX += this.speedX;
+                this.baseY += this.speedY;
+
+                if (this.baseX < 0 || this.baseX > window.innerWidth) this.speedX = -this.speedX;
+                if (this.baseY < 0 || this.baseY > window.innerHeight) this.speedY = -this.speedY;
+
+                if (mouseNode.x !== null && mouseNode.y !== null) {
+                    const dx = this.baseX - mouseNode.x;
+                    const dy = this.baseY - mouseNode.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < mouseNode.radius) {
+                        const force = (mouseNode.radius - dist) / mouseNode.radius;
+                        const targetX = this.baseX - (dx / dist) * force * 50 * (this.layer * 0.6);
+                        const targetY = this.baseY - (dy / dist) * force * 50 * (this.layer * 0.6);
+                        
+                        this.x += (targetX - this.x) * this.ease;
+                        this.y += (targetY - this.y) * this.ease;
+                    } else {
+                        this.x += (this.baseX - this.x) * this.ease;
+                        this.y += (this.baseY - this.y) * this.ease;
+                    }
+                } else {
+                    this.x += (this.baseX - this.x) * this.ease;
+                    this.y += (this.baseY - this.y) * this.ease;
+                }
+            }
+        }
+
+        class DataPacket {
+            constructor(fromNode, toNode) {
+                this.from = fromNode;
+                this.to = toNode;
+                this.progress = 0;
+                this.speed = Math.random() * 0.015 + 0.006;
+                this.color = Math.random() > 0.5 ? 'sari' : 'blue';
+            }
+
+            draw() {
+                const activeColor = this.color === 'sari' ? currentSariColor : currentNeonBlueColor;
+
+                const x = this.from.x + (this.to.x - this.from.x) * this.progress;
+                const y = this.from.y + (this.to.y - this.from.y) * this.progress;
+
+                bgCtx.save();
+                bgCtx.beginPath();
+                bgCtx.arc(x, y, 3, 0, Math.PI * 2);
+                bgCtx.fillStyle = activeColor;
+                bgCtx.shadowBlur = 12;
+                bgCtx.shadowColor = activeColor;
+                bgCtx.globalAlpha = 0.95;
+                bgCtx.fill();
+                bgCtx.restore();
+            }
+
+            update() {
+                this.progress += this.speed;
+                return this.progress >= 1;
+            }
+        }
+
+        function initConstellation() {
+            nodes = [];
+            packets = [];
+            const isMobile = window.innerWidth < 768;
+            const divider = isMobile ? 24000 : 12000;
+            const density = Math.floor((window.innerWidth * window.innerHeight) / divider);
+            
+            for (let i = 0; i < density; i++) {
+                const layer = Math.random() > 0.6 ? (Math.random() > 0.7 ? 3 : 2) : 1;
+                nodes.push(new CyberNode(layer));
+            }
+        }
+
+        function drawConnections() {
+            const maxDistance = 140;
+
+            for (let i = 0; i < nodes.length; i++) {
+                for (let j = i + 1; j < nodes.length; j++) {
+                    if (Math.abs(nodes[i].layer - nodes[j].layer) > 1) continue;
+
+                    const dx = nodes[i].x - nodes[j].x;
+                    const dy = nodes[i].y - nodes[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < maxDistance) {
+                        const opacity = (1 - (dist / maxDistance)) * 0.15 * (nodes[i].layer * 0.5);
+                        bgCtx.save();
+                        bgCtx.strokeStyle = currentNeonBlueColor;
+                        bgCtx.lineWidth = nodes[i].layer === 3 ? 0.8 : 0.4;
+                        bgCtx.globalAlpha = opacity;
+                        bgCtx.beginPath();
+                        bgCtx.moveTo(nodes[i].x, nodes[i].y);
+                        bgCtx.lineTo(nodes[j].x, nodes[j].y);
+                        bgCtx.stroke();
+                        bgCtx.restore();
+
+                        if (Math.random() < 0.00015 && packets.length < 25) {
+                            packets.push(new DataPacket(nodes[i], nodes[j]));
+                        }
+                    }
+                }
+            }
+        }
+
+        function animateConstellation() {
+            bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+
+            nodes.forEach(node => {
+                node.update();
+                node.draw();
+            });
+
+            drawConnections();
+
+            for (let i = packets.length - 1; i >= 0; i--) {
+                const finished = packets[i].update();
+                if (finished) {
+                    packets.splice(i, 1);
+                } else {
+                    packets[i].draw();
+                }
+            }
+
+            requestAnimationFrame(animateConstellation);
+        }
+
+        resizeCanvas();
+        animateConstellation();
+
+        // ================= CUSTOMIZER CONFIGURATION =================
+        const customizerBtn = document.getElementById('customizer-btn');
+        const customizerPanel = document.getElementById('customizer-panel');
+
+        customizerBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            customizerPanel.style.display = customizerPanel.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        document.addEventListener('click', () => {
+            customizerPanel.style.display = 'none';
+        });
+
+        customizerPanel.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+
+        function changeTheme(theme, btnElement) {
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            if(btnElement) btnElement.classList.add('active');
+
+            const root = document.documentElement;
+            if (theme === 'classic') {
+                root.style.setProperty('--sari', '#FFF400');
+                root.style.setProperty('--sari-glow', 'rgba(255, 244, 0, 0.45)');
+                root.style.setProperty('--neon-blue', '#00F0FF');
+                root.style.setProperty('--neon-blue-glow', 'rgba(0, 240, 255, 0.35)');
+                currentSariColor = '#FFF400';
+                currentNeonBlueColor = '#00F0FF';
+            } else if (theme === 'matrix') {
+                root.style.setProperty('--sari', '#00FF66');
+                root.style.setProperty('--sari-glow', 'rgba(0, 255, 102, 0.45)');
+                root.style.setProperty('--neon-blue', '#0d2347');
+                root.style.setProperty('--neon-blue-glow', 'rgba(13, 35, 71, 0.35)');
+                currentSariColor = '#00FF66';
+                currentNeonBlueColor = '#0d2347';
+            } else if (theme === 'sunset') {
+                root.style.setProperty('--sari', '#FF3366');
+                root.style.setProperty('--sari-glow', 'rgba(255, 51, 102, 0.45)');
+                root.style.setProperty('--neon-blue', '#FFF400');
+                root.style.setProperty('--neon-blue-glow', 'rgba(255, 244, 0, 0.35)');
+                currentSariColor = '#FF3366';
+                currentNeonBlueColor = '#FFF400';
+            } else if (theme === 'Blood' || theme === 'blood') {
+                root.style.setProperty('--sari', '#ff0000');
+                root.style.setProperty('--sari-glow', 'rgba(255, 0, 0, 0.45)');
+                root.style.setProperty('--neon-blue', '#ff7c01');
+                root.style.setProperty('--neon-blue-glow', 'rgba(255, 124, 1, 0.35)');
+                currentSariColor = '#ff0000';
+                currentNeonBlueColor = '#ff7c01';
+            } else if (theme === 'Sky' || theme === 'sky') {
+                root.style.setProperty('--sari', '#0055ff');
+                root.style.setProperty('--sari-glow', 'rgba(0, 85, 255, 0.45)');
+                root.style.setProperty('--neon-blue', '#00aeff');
+                root.style.setProperty('--neon-blue-glow', 'rgba(0, 174, 255, 0.35)');
+                currentSariColor = '#0055ff';
+                currentNeonBlueColor = '#00aeff';
+            }
+
+            localStorage.setItem('ege_portfolio_theme', theme);
+            playSynthBeep(440, 0.1, 'sine');
+        }
+
+        function changeNodeShape(shape) {
+            currentElementShape = shape;
+            document.querySelectorAll('.customizer-section .opt-btn').forEach(btn => {
+                if (btn.id.startsWith('shape-')) {
+                    btn.classList.remove('active');
+                }
+            });
+            document.getElementById(`shape-${shape}`).classList.add('active');
+            localStorage.setItem('ege_portfolio_shape', shape);
+            playSynthBeep(480, 0.1, 'triangle');
+        }
+
+        function changePresentationMode(mode) {
+            const body = document.body;
+            body.classList.remove('theme-terminal', 'theme-minimal');
+            
+            document.querySelectorAll('.customizer-section .opt-btn').forEach(btn => {
+                if (btn.id.startsWith('sys-')) {
+                    btn.classList.remove('active');
+                }
+            });
+            document.getElementById(`sys-${mode}`).classList.add('active');
+
+            if (mode === 'terminal') {
+                body.classList.add('theme-terminal');
+            } else if (mode === 'minimal') {
+                body.classList.add('theme-minimal');
+            }
+            
+            localStorage.setItem('ege_portfolio_presentation', mode);
+            playSynthBeep(520, 0.1, 'sawtooth');
+        }
+
+        window.addEventListener('load', () => {
+            const savedTheme = localStorage.getItem('ege_portfolio_theme') || 'classic';
+            const savedShape = localStorage.getItem('ege_portfolio_shape') || 'circle';
+            const savedPresentation = localStorage.getItem('ege_portfolio_presentation') || 'cyber';
+            const savedLang = localStorage.getItem('ege_portfolio_lang') || 'tr';
+
+            let themeBtnId = `theme-btn-${savedTheme}`;
+            if (savedTheme === 'Blood' || savedTheme === 'blood') themeBtnId = 'theme-btn-Blood';
+            if (savedTheme === 'Sky' || savedTheme === 'sky') themeBtnId = 'theme-btn-Sky';
+
+            const themeBtn = document.getElementById(themeBtnId);
+            changeTheme(savedTheme, themeBtn);
+
+            changeNodeShape(savedShape);
+            changePresentationMode(savedPresentation);
+            
+            // Set localized files & Typed
+            setLanguage(savedLang);
+        });
+
+        // ================= PORTFOLIO DETAILS MODAL =================
+        function openProjectModal(id) {
+            const modal = document.getElementById(`modal-${id}`);
+            if (modal) {
+                modal.style.display = 'flex';
+                setTimeout(() => {
+                    modal.style.opacity = '1';
+                    modal.querySelector('.modal-content').style.transform = 'scale(1)';
+                }, 10);
+                playSynthBeep(650, 0.15, 'sine');
+            }
+        }
+
+        function closeProjectModal(id) {
+            const modal = document.getElementById(`modal-${id}`);
+            if (modal) {
+                modal.style.opacity = '0';
+                modal.querySelector('.modal-content').style.transform = 'scale(0.9)';
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                }, 300);
+                playSynthBeep(350, 0.1, 'sine');
+            }
+        }
+
+        function closeProjectModalOnBg(event, id) {
+            if (event.target.id === `modal-${id}`) {
+                closeProjectModal(id);
+            }
+        }
+
+        // ================= DYNAMIC FORMS MANAGEMENT =================
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            const messageBox = document.getElementById('form-message');
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            const formFeedback = {
+                tr: {
+                    success: '<i class="fas fa-check-circle"></i> Mesajınız başarıyla iletildi! En kısa sürede geri dönüş yapacağım.',
+                    error: '<i class="fas fa-exclamation-circle"></i> Lütfen tüm alanları doldurun.'
+                },
+                en: {
+                    success: '<i class="fas fa-check-circle"></i> Your message was transmitted successfully! I will reach out soon.',
+                    error: '<i class="fas fa-exclamation-circle"></i> Please make sure to fill all fields.'
+                },
+                de: {
+                    success: '<i class="fas fa-check-circle"></i> Ihre Nachricht wurde erfolgreich übermittelt! Ich melde mich bald.',
+                    error: '<i class="fas fa-exclamation-circle"></i> Bitte füllen Sie alle Felder aus.'
+                }
+            };
+
+            const selectedFeedback = formFeedback[currentLanguage];
+
+            if (name && email && message) {
+                messageBox.style.display = 'block';
+                messageBox.className = 'form-status success';
+                messageBox.innerHTML = selectedFeedback.success;
+                document.getElementById('portfolio-form').reset();
+                playSynthBeep(880, 0.3, 'sine');
+                setTimeout(() => {
+                    messageBox.style.display = 'none';
+                }, 5000);
+            } else {
+                messageBox.style.display = 'block';
+                messageBox.className = 'form-status error';
+                messageBox.innerHTML = selectedFeedback.error;
+                playSynthBeep(220, 0.35, 'sawtooth');
+            }
+        }
+
+        // ================= Yapay Zeka Siber Asistan JS Motoru (YAPAY ZEKA) =================
+        const aiBtn = document.getElementById('ai-btn');
+        const aiChat = document.getElementById('ai-chat');
+        const aiClose = document.getElementById('ai-close');
+        const aiMessages = document.getElementById('ai-messages');
+        const aiInput = document.getElementById('ai-input');
+        const aiSend = document.getElementById('ai-send');
+        const aiLoading = document.getElementById('ai-loading');
+
+        aiBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            aiChat.style.display = aiChat.style.display === 'flex' ? 'none' : 'flex';
+            aiInput.focus();
+            playSynthBeep(700, 0.12, 'sine');
+        });
+
+        aiClose.addEventListener('click', () => {
+            aiChat.style.display = 'none';
+            playSynthBeep(300, 0.1, 'sine');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!document.getElementById('ai-widget').contains(e.target)) {
+                aiChat.style.display = 'none';
+            }
+        });
+
+        aiSend.addEventListener('click', handleUserMessage);
+        aiInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') handleUserMessage();
+        });
+
+        async function handleUserMessage() {
+            const query = aiInput.value.trim();
+            if (query === '') return;
+
+            appendAiMessage(query, 'user');
+            aiInput.value = '';
+            
+            aiLoading.style.display = 'block';
+            aiMessages.scrollTop = aiMessages.scrollHeight;
+
+            try {
+                const responseText = await getGeminiResponse(query);
+                aiLoading.style.display = 'none';
+                appendAiMessage(responseText, 'bot');
+                playSynthBeep(600, 0.15, 'sine');
+            } catch (err) {
+                aiLoading.style.display = 'none';
+                const connectionErrorMsg = {
+                    tr: "Bağlantı hattında geçici bir siber parazit oluştu. Lütfen tekrar deneyin.",
+                    en: "A temporary cyber interference occurred on the link. Please try again.",
+                    de: "Eine temporäre Cyber-Interferenz ist aufgetreten. Bitte versuchen Sie es erneut."
+                };
+                appendAiMessage(connectionErrorMsg[currentLanguage], 'bot');
+                playSynthBeep(180, 0.4, 'sawtooth');
+            }
+        }
+
+        function sendQuickQuestion(questionText) {
+            aiInput.value = questionText;
+            handleUserMessage();
+        }
+
+        function appendAiMessage(text, sender) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `ai-message ${sender}`;
+            msgDiv.innerText = text;
+            aiMessages.appendChild(msgDiv);
+            aiMessages.scrollTop = aiMessages.scrollHeight;
+        }
+
+        async function getGeminiResponse(userQuery) {
+            const apiKey = ""; 
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            
+            // Dynamic system instruction to make chatbot reply in active user language
+            const systemPrompt = `You are a dedicated cyber assistant inside Ege Sül's portfolio.
+            You must reply ONLY in the selected system language. The active language of the user is: ${currentLanguage.toUpperCase()}.
+
+            Ege Sül: Born on Sept 13, 2006, living in Muğla, a highly ambitious Computer Programming student aiming for advanced engineering YKS transition, financial freedom, and tech excellence.
+            Tech Stack: C#/.NET Core (Advanced), MS SQL Server (Advanced), Python (Newly learning!), JavaScript, CSS/HTML, WordPress & Elementor.
+            Featured Projects:
+            1. Gym Manager: C# & SQL Server based SaaS gym automation.
+            2. Burger House: In-memory async JS food delivery flow.
+            3. OzanCMS Portal Client: MemoryCached Redis client running on ege.ozancms.com.
+            4. CyberAuth Middleware: High performance async JWT and rate-limiting gateway module.
+
+            Be cyber, professional, goal-oriented, and rational. Always praise Ege's work ethics, time management, and code standards. Respond eloquently in ${currentLanguage.toUpperCase()}.`;
+
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                systemInstruction: { parts: [{ text: systemPrompt }] }
+            };
+
+            let retryDelay = 1000;
+            for (let i = 0; i < 5; i++) {
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (response.ok) {
+                        const result = await response.json();
+                        return result.candidates?.[0]?.content?.parts?.[0]?.text || "Information currently offline.";
+                    }
+                } catch (e) {
+                }
+                await new Promise(resolve => setTimeout(resolve, retryDelay));
+                retryDelay *= 2;
+            }
+            throw new Error("API Offline.");
+        }
+
+        // ================= LIVE SERVER GRAPHS & DEVOPS REAL-TIME SIMULATOR =================
+        const devopsCanvas = document.getElementById('devops-chart');
+        const devopsCtx = devopsCanvas.getContext('2d');
+        let devopsChartData = Array(30).fill(15); 
+
+        function updateDevopsMetrics() {
+            const cpuVal = Math.floor(Math.random() * 25 + 10); 
+            const latencyVal = Math.floor(Math.random() * 8 + 10); 
+            
+            const cpuEl = document.getElementById('cpu-val');
+            const latencyEl = document.getElementById('latency-val');
+            if (cpuEl) cpuEl.innerText = cpuVal + '%';
+            if (latencyEl) latencyEl.innerText = latencyVal + ' ms';
+
+            devopsChartData.push(latencyVal);
+            devopsChartData.shift();
+
+            drawDevopsChart();
+        }
+
+        function drawDevopsChart() {
+            if (!devopsCanvas) return;
+            const width = devopsCanvas.width = devopsCanvas.parentElement.clientWidth;
+            const height = devopsCanvas.height = devopsCanvas.parentElement.clientHeight;
+            
+            devopsCtx.clearRect(0, 0, width, height);
+
+            devopsCtx.strokeStyle = currentNeonBlueColor;
+            devopsCtx.lineWidth = 1.5;
+            devopsCtx.shadowBlur = 4;
+            devopsCtx.shadowColor = currentNeonBlueColor;
+
+            devopsCtx.beginPath();
+            const step = width / (devopsChartData.length - 1);
+            
+            for (let i = 0; i < devopsChartData.length; i++) {
+                const yVal = height - ((devopsChartData[i] - 8) / 15) * height;
+                const xVal = i * step;
+
+                if (i === 0) {
+                    devopsCtx.moveTo(xVal, yVal);
+                } else {
+                    devopsCtx.lineTo(xVal, yVal);
+                }
+            }
+            devopsCtx.stroke();
+        }
+
+        setInterval(updateDevopsMetrics, 2000);
+
+        // ================= INTERACTIVE SQL SANDBOX ENGINE =================
+        const mockDatabase = {
+            GymMembers: [
+                { MemberId: 1, AdSoyad: "Oğuzhan Kurt", KayitTarihi: "2026-01-10", MembershipStatus: "Aktif" },
+                { MemberId: 2, AdSoyad: "Zeynep Aslan", KayitTarihi: "2025-11-15", MembershipStatus: "Pasif" },
+                { MemberId: 3, AdSoyad: "Ege Sül", KayitTarihi: "2026-03-01", MembershipStatus: "Aktif" }
+            ],
+            OzanCmsPosts: [
+                { PostId: 101, Baslik: "C# ile Enterprise Mimari", Kategori: "Backend", HitRate: "1.2K" },
+                { PostId: 102, Baslik: "Redis Cache Performansı", Kategori: "DevOps", HitRate: "850" }
+            ],
+            SecurityGatewayLogs: [
+                { LogId: "A-501", Protokol: "JWT_AUTH", IP: "192.168.1.45", Durum: "SUCCESS" },
+                { LogId: "A-502", Protokol: "RATE_LIMIT", IP: "85.105.4.12", Durum: "BLOCKED" }
+            ]
+        };
+
+        const sqlSelector = document.getElementById('sql-query-select');
+        const sqlInput = document.getElementById('sql-input-box');
+        const sqlStatus = document.getElementById('sql-execution-status');
+        const sqlEmpty = document.getElementById('sql-empty-state');
+        const sqlTable = document.getElementById('sql-results-table');
+        const sqlThead = document.getElementById('sql-thead');
+        const sqlTbody = document.getElementById('sql-tbody');
+
+        function loadSelectedSqlQuery() {
+            const queryKey = sqlSelector.value;
+            if (queryKey === 'custom') return;
+
+            let queryText = "";
+            switch (queryKey) {
+                case 'get_all_members':
+                    queryText = "SELECT * FROM GymMembers;";
+                    break;
+                case 'get_active_members':
+                    queryText = "SELECT * FROM GymMembers WHERE MembershipStatus = 'Aktif';";
+                    break;
+                case 'get_cached_posts':
+                    queryText = "SELECT * FROM OzanCmsPosts;";
+                    break;
+                case 'get_microservice_logs':
+                    queryText = "SELECT * FROM SecurityGatewayLogs;";
+                    break;
+            }
+            sqlInput.value = queryText;
+            playSynthBeep(580, 0.08, 'sine');
+        }
+
+        function runSimulatedSqlQuery() {
+            const query = sqlInput.value.trim().replace(/;$/, '');
+            
+            const runningTexts = {
+                tr: "Sorgu çalıştırılıyor...",
+                en: "Executing query...",
+                de: "Abfrage wird ausgeführt..."
+            };
+            sqlStatus.innerText = runningTexts[currentLanguage];
+            playSynthBeep(650, 0.15, 'triangle');
+
+            setTimeout(() => {
+                let columns = [];
+                let rows = [];
+                let errorOccurred = false;
+
+                const lowerQuery = query.toLowerCase();
+                
+                if (lowerQuery.startsWith("select * from gymmembers")) {
+                    columns = ["MemberId", "AdSoyad", "KayitTarihi", "MembershipStatus"];
+                    if (lowerQuery.includes("where membershipstatus = 'aktif'") || lowerQuery.includes("where membershipstatus='aktif'")) {
+                        rows = mockDatabase.GymMembers.filter(m => m.MembershipStatus === "Aktif");
+                    } else {
+                        rows = mockDatabase.GymMembers;
+                    }
+                } else if (lowerQuery.startsWith("select * from ozancmsposts")) {
+                    columns = ["PostId", "Baslik", "Kategori", "HitRate"];
+                    rows = mockDatabase.OzanCmsPosts;
+                } else if (lowerQuery.startsWith("select * from securitygatewaylogs")) {
+                    columns = ["LogId", "Protokol", "IP", "Durum"];
+                    rows = mockDatabase.SecurityGatewayLogs;
+                } else {
+                    errorOccurred = true;
+                }
+
+                const responseStatus = {
+                    tr: {
+                        success: "Sorgu başarıyla çalıştırıldı.",
+                        syntaxErr: "HATA: Sözdizimi hatası veya bilinmeyen tablo ismi.",
+                        detailsErr: "HATA: Sorgu çalıştırılamadı. Doğru tablo isimlerini kullandığınızdan emin olun (GymMembers, OzanCmsPosts, SecurityGatewayLogs)."
+                    },
+                    en: {
+                        success: "Query executed successfully.",
+                        syntaxErr: "ERROR: Syntax error or unknown table identifier.",
+                        detailsErr: "ERROR: Failed to run query. Please make sure to reference correct tables (GymMembers, OzanCmsPosts, SecurityGatewayLogs)."
+                    },
+                    de: {
+                        success: "Abfrage erfolgreich ausgeführt.",
+                        syntaxErr: "FEHLER: Syntaxfehler oder unbekannter Tabellenname.",
+                        detailsErr: "FEHLER: Abfrage konnte nicht ausgeführt werden. Stellen Sie sicher, dass Sie korrekte Tabellen verwenden (GymMembers, OzanCmsPosts, SecurityGatewayLogs)."
+                    }
+                };
+
+                const localeRes = responseStatus[currentLanguage];
+
+                if (errorOccurred) {
+                    sqlStatus.innerText = localeRes.syntaxErr;
+                    sqlStatus.style.color = "#ff5f56";
+                    sqlEmpty.style.display = "block";
+                    sqlEmpty.innerText = localeRes.detailsErr;
+                    sqlTable.style.display = "none";
+                    playSynthBeep(220, 0.35, 'sawtooth');
+                } else {
+                    sqlStatus.innerText = localeRes.success;
+                    sqlStatus.style.color = "#27c93f";
+                    sqlEmpty.style.display = "none";
+                    sqlTable.style.display = "table";
+
+                    sqlThead.innerHTML = `<tr>${columns.map(col => `<th>${col}</th>`).join('')}</tr>`;
+                    sqlTbody.innerHTML = rows.map(row => {
+                        return `<tr>${columns.map(col => `<td>${row[col]}</td>`).join('')}</tr>`;
+                    }).join('');
+                    
+                    playSynthBeep(880, 0.08, 'sine');
+                }
+            }, 400);
+        }
+    </script>
+</body>
+</html>
