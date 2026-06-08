@@ -93,3 +93,9 @@ Choose one of the simple methods below to launch the dashboard instantly:
 2. Navigate to your project directory:
    ```bash
    https://github.com/EgeSul/my-portfolio
+
+## 📂 Project Directory Structure
+```text
+├── index.html          # Monolithic architecture: Contains HTML5 layout, CSS3 variables, and Vanilla JS Engine
+├── README.md           # Technical documentation and system architecture guide
+└── .gitignore          # Repository isolation configuration
