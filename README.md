@@ -33,6 +33,12 @@ When building this website, I avoided bulky external CSS libraries (Tailwind, Bo
 
 ## 🧠 "Insane" Features & Core System Logic
 
+### 🌐 Multi-Language Architecture & Localization (i18n)
+The cyber dashboard provides global accessibility with structural multi-language support, managing language states asynchronously:
+* **Supported Languages:** **English (EN)** (Global standard), **Türkçe (TR)** (Native core), and **Deutsch (DE)** (European localization).
+* **Asynchronous Dictionary Loading:** Instead of reloading the page, the user interface switches languages instantly by rendering language packs dynamically via centralized JSON matrix mapping.
+* **Persistent State Memory:** The selected language is saved in the browser's `LocalStorage` loop, ensuring the preferences persist across multiple sessions.
+
 ### 🌀 A. Cyberconstellation Plexus (Spherical Cyber Network)
 I completely eliminated the old-school square particle architecture. Instead, I built a cyber network (plexus) made of glowing round neon spheres that symbolize data packet transfers between C# and SQL Server:
 * **Spring Physics:** Particles react gravitationally based on the mouse pointer's position. They bend when the mouse approaches and seamlessly snap back to their original coordinates when it moves away.
@@ -63,3 +69,27 @@ The most prestigious module of this portfolio is a cyber chat assistant that com
 One of the most unique details of the site is an audio synthesizer that triggers the browser's native audio processor without loading external files.
 * **OscillatorNode:** Digital beeps are generated asynchronously using various frequencies and waveforms (Sine, Triangle, Sawtooth) whenever UI buttons are clicked or terminal keys are pressed.
 * **GainNode:** A premium cyber atmosphere is achieved by managing sound attenuation via exponential decay.
+
+---
+
+## 🚀 How to Run (Nasıl Çalıştırılır?)
+
+### 📋 Prerequisites
+To run this live dashboard locally, you do not need database setups or package installations. You only need:
+* A modern web browser (Google Chrome, Microsoft Edge, Brave, or Safari).
+* A basic local development server environment (highly recommended for API features).
+
+### 💻 Step-by-Step Execution
+Choose one of the simple methods below to launch the dashboard instantly:
+
+#### Option A: VS Code Live Server (Recommended)
+1. Open the project folder in Visual Studio Code.
+2. Install the **Live Server** extension (by Ritwick Dey).
+3. Right-click on `index.html` and select **"Open with Live Server"**.
+4. The site will run securely at `http://127.0.0.1:5500/index.html`.
+
+#### Option B: Python Local Server
+1. Open your terminal or console.
+2. Navigate to your project directory:
+   ```bash
+   https://github.com/EgeSul/my-portfolio
