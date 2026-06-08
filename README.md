@@ -1,95 +1,65 @@
-# 🚀 Klasik Portfolyoları Unutun: Yaşayan Bir Siber Kontrol Paneli
+# 🚀 Forget Classic Portfolios: A Living Cyber Dashboard
 
-**Geliştirici:** Ege Sül  
-**Pozisyon / Alan:** Bilgisayar Programcılığı Öğrencisi & Backend / AI Odaklı Geliştirici  
-**Proje Türü:** Dönem Sonu Proje Ödevi & Canlı Yazılım Simülasyonu
-
----
-
-## 💡 Bu Proje Nereden Çıktı? (Amacım ve Felsefem)
-
-İnternette gezinirken karşımıza çıkan o tekdüze, şablon (*boilerplate*) portfolyo sitelerinden hepimiz sıkılmadık mı? *"Merhaba, ben kod yazıyorum"* deyip iki tane grafik barı koyup bırakılan statik siteler, bir yazılımcının gerçek potansiyelini göstermekten çok uzak.
-
-Ben hedefleri ve yüksek standartları olan bir geliştiriciyim. Daha önce sıfırdan bir mimarlık/tasarım sitesi geliştirme sürecinde edindiğim tecrübeler, bana bazı "amelelik" ve tekrara düşen kısımların ne kadar sıkıcı olduğunu gösterdi. Bu projeye başlarken kendime net bir kural koydum: **Kendime sınır koymayacaktım.** Akademik müfredatın ve sunulan kaynakların çok daha ötesine geçmeyi hedefledim. Doğrudan canlıda (*domain* üzerinde) gururla sergileyebileceğim, "adamakıllı" ve tam kapsamlı bir yazılım simülasyonu inşa etmek istedim. 
-
-Bu projede **C# / .NET Core backend bilgimi**, **ilişkisel veritabanı (MS SQL Server) mantığımı** ve **asenkron JavaScript yeteneklerimi** bir araya getirdim. Yapay zeka entegrasyonu gibi ileri düzey konularda ise yapay zekayı adeta bir kıdemli ortak geliştirici (*Pair Programmer*) olarak yanıma aldım. Vizyonunu benim çizdiğim, kod filtresinden geçirip tarayıcıda bozup bozup düzelttiğim bu çalışma; sadece bir ödev değil, yaşayan fütüristik bir üründür.
+**Developer:** Ege Sül  
+**Position / Field:** Computer Programming Student & Backend / AI-Focused Developer  
+**Project Type:** End-of-Term Capstone Project & Live Software Simulation  
 
 ---
 
-## 🛠️ Sistemin Arkasında Ne Dönüyor? (Teknik Altyapı)
+## 💡 Where Did This Project Come From? (My Purpose & Philosophy)
 
-Web sitemi kurarken harici, hantal CSS kütüphaneleri (Tailwind, Bootstrap vb.) veya spagetti koda sebep olabilecek yapılar kullanmadım. Temel web geliştirme (**HTML5, CSS3, Vanilla JS**) yapısına sadık kalarak, her şeyi tek bir dinamik dosya düzeninde optimize ettim.
+Aren't we all tired of those monotonous, boilerplate portfolio websites scattered across the internet? Static sites that just say *"Hello, I write code"* along with a couple of basic graphic progress bars fall incredibly short of showing a developer's true potential. 
 
-### 📐 Sistem Katmanları
+I am a developer driven by high standards and ambitious goals. My previous experience building an architecture/design website from scratch showed me just how tedious repetitive, "brute-force" coding can be. When starting this project, I set a strict rule for myself: **No limits.** I aimed to push far beyond the academic curriculum and standard resources. I wanted to build a "proper," fully comprehensive software simulation that I could proudly showcase live on my own domain.
 
-| Katman | Kullanılan Teknolojiler / Yapılar | Görevi |
+This project merges my C# / .NET Core backend knowledge, relational database (MS SQL Server) logic, and asynchronous JavaScript skills. When it came to advanced topics like artificial intelligence integration, I utilized AI as a senior **Pair Programmer**. Guided by my vision, this project—which I continuously refined, breaking and fixing things directly in the browser—is not just an assignment; it is a living, futuristic product.
+
+---
+
+## 🛠️ What's Happening Under the Hood? (Technical Architecture)
+
+When building this website, I avoided bulky external CSS libraries (Tailwind, Bootstrap, etc.) and architectures that lead to spaghetti code. Staying loyal to native web development (**HTML5, CSS3, Vanilla JS**), I optimized everything within a single dynamic file structure.
+
+### 📐 System Layers
+
+| Layer | Technologies / Frameworks Used | Responsibility |
 | :--- | :--- | :--- |
-| **Grafik & Fizik** | Canvas 2D API | İnteraktif siber ağlar ve pürüzsüz DevOps izleme grafiği render eder. |
-| **İş Mantığı (Logic)** | Asenkron JavaScript, DOM Manipulation | Terminal simülatörü, SQL Sandbox, LocalStorage durum yönetimi ve veri akışı. |
-| **Yapay Zeka (AI)** | Google Gemini 2.5 Flash API | Arka planda asenkron konuşan dinamik chat asistanı. |
-| **Ses Motoru** | Web Audio API | Dışarıdan dosya (.mp3/.wav) yüklemeden kodla fütüristik UI sesleri üretir. |
+| **Graphics & Physics** | Canvas 2D API | Renders interactive cyber networks and a smooth DevOps monitoring chart. |
+| **Business Logic** | Async JavaScript, DOM Manipulation | Powers the terminal simulator, SQL Sandbox, LocalStorage state management, and data streaming. |
+| **Artificial Intelligence** | Google Gemini 2.5 Flash API | A dynamic chat assistant handling async communication in the background. |
+| **Audio Engine** | Web Audio API | Synthesizes futuristic UI sounds programmatically without loading heavy external audio files (.mp3/.wav). |
 
 ---
 
-## 🧠 Sitedeki "Çılgın" Özellikler ve Çalışma Mantıkları
+## 🧠 "Insane" Features & Core System Logic
 
-### 🌀 A. Cyberconstellation Plexus (Kürelerden Siber Ağ)
-Eski nesil kare parçacık mimarisini tamamen sildim. Yerine, **C# ve SQL Server arasındaki veri paket transferini** sembolize eden yuvarlak, neon parıltılı kürelerden oluşan bir siber ağ (*plexus*) kurdum:
-* **Yay (Spring) Fiziği:** Parçacıklar farenin konumuna göre gravitasyonel tepki verir. Fare yaklaştığında bükülür, uzaklaştığında sarsıntısız bir şekilde orijinal koordinatlarına geri yaylanır.
-* **Parallax Derinliği:** Parçacıklar 3 farklı katmanda (arka, orta, ön plan) farklı hız ve opaklık değerleriyle hareket ederek ekrana gerçekçi bir 3D uzay derinliği kazandırır.
-* **Asenkron Veri Paketleri:** Bağlantı çizgileri üzerinde rastgele tetiklenen minik asenkron ışıklar, backend veritabanlarındaki veri akışını simüle eder.
+### 🌀 A. Cyberconstellation Plexus (Spherical Cyber Network)
+I completely eliminated the old-school square particle architecture. Instead, I built a cyber network (plexus) made of glowing round neon spheres that symbolize data packet transfers between C# and SQL Server:
+* **Spring Physics:** Particles react gravitationally based on the mouse pointer's position. They bend when the mouse approaches and seamlessly snap back to their original coordinates when it moves away.
+* **Parallax Depth:** Particles move across 3 different layers (background, midground, foreground) with varying speeds and opacities, creating a realistic 3D spatial depth.
+* **Asynchronous Data Packets:** Tiny asynchronous lights travel randomly across connecting lines to simulate live data traffic within backend databases.
 
-### 💻 B. İnteraktif Developer Terminali (`egesul.sh`)
-Hakkımda bölümünde yer alan siber terminal, kullanıcılardan klavye girdisi kabul edebilen gerçek bir komut satırı simülatörüdür.
-* JavaScript üzerinde klavye tuş basımlarını (`keydown`) dinleyen bir sistem kurguladım.
-* `help`, `about`, `skills`, `goals` ve `clear` komutları asenkron string analiziyle çalıştırılır ve terminal çıktısı DOM'a anlık enjekte edilir. `clear` komutuyla geçmiş silinirken CLI promptu korunur.
+### 💻 B. Interactive Developer Terminal (`egesul.sh`)
+The 'About Me' section features a cyber terminal that acts as a fully functional command-line simulator accepting keyboard inputs.
+* I engineered a system that listens to keyboard events (`keydown`) via JavaScript.
+* Commands like `help`, `about`, `skills`, `goals`, and `clear` are processed using asynchronous string analysis, instantly injecting outputs into the DOM. The `clear` command wipes the screen history while preserving the CLI prompt.
 
-### 📊 C. DevOps Sağlık Monitörü (Canlı Sistem Grafiği)
-Terminalin hemen yanına canlı sunucu durumunu simüle eden bir DevOps paneli yerleştirdim.
-* Rastgele üretilen gerçekçi CPU yükü, ağ gecikmesi (*Network Latency - ms*) ve Redis önbellek hit-rate değerleri her 2 saniyede bir güncellenir.
-* Gecikme grafiği, Canvas 2D bağlamı kullanılarak anlık olarak pürüzsüzce çizilir.
+### 📊 C. DevOps Health Monitor (Live System Chart)
+Right next to the terminal sits a DevOps dashboard simulating a live server status.
+* Realistically generated values for **CPU Load**, **Network Latency (ms)**, and **Redis Cache Hit-Rate** update automatically every 2 seconds.
+* The latency chart is drawn dynamically and smoothly using the Canvas 2D context.
 
-### 🗄️ D. İnteraktif SQL Sandbox & Sorgu Çalıştırıcı
-Yazılım dünyasında "SQL biliyorum" demek kolaydır; ben bunu canlı olarak simüle etmek istedim.
-* JavaScript üzerinde `GymMembers` (SaaS projesi), `OzanCmsPosts` (CMS portalı) ve `SecurityGatewayLogs` (siber güvenlik ağ günlükleri) tablolarını simüle eden bir JSON veritabanı mimarisi kurguladım.
-* Kullanıcı hazır sorguları seçtiğinde veya metin alanına kendi `SELECT` sorgusunu yazdığında sorgu asenkron işlenir. Doğru tablolarda veriler anında siber neon bir veri tablosunda render edilirken, hatalı tablolarda siber hata logu (`[!] HATA`) basılır.
+### 🗄️ D. Interactive SQL Sandbox & Query Runner
+Saying *"I know SQL"* in the software industry is easy; I wanted to build a live sandbox to prove it.
+* I structured a lightweight JSON database architecture on JavaScript that simulates mock tables: `GymMembers` (SaaS Project), `OzanCmsPosts` (CMS Portal), and `SecurityGatewayLogs` (Cybersecurity Network Logs).
+* When a user selects a preset query or types a custom `SELECT` statement into the input field, the query is processed asynchronously. Correct queries instantly render data inside a neon data table, while invalid ones log a cyber error trace (`[!] ERROR`).
 
-### 🤖 E. Gemini 2.5 Flash Yapay Zeka Entegrasyonu (Ege-AI)
-Portfolyonun en prestijli bölümü, doğrudan Google'ın LLM modeli ile asenkron konuşan siber chat asistanıdır.
-* **Özel Sistem Promptu:** Asistanın arka planında, yapay zekayı bir *"Ege Sül Siber Asistanı"* olarak konumlandıran gizli bir talimat çalışır. Bu talimat yapay zekaya benim kimliğimi, C#/.NET Core, MS SQL ve Python yetkinliklerimi, projelerimi (*Gym SaaS, Burger House, CMS, CyberAuth*) ve kurumsal C# yazılım mimarı olma hedeflerimi tanımlar.
-* **Üstel Geri Çekilme (Exponential Backoff):** Yapay zeka asenkron API çağrısı, siber parazitlere veya bağlantı kopmalarına karşı korunmaktadır. İstek başarısız olduğunda sistem 5 kez (gecikme sürelerini her defasında ikiye katlayarak: 1sn, 2sn, 4sn, 8sn, 16sn) otomatik yeniden deneme (*retry*) yapar.
+### 🤖 E. Gemini 2.5 Flash AI Integration (`Ege-AI`)
+The most prestigious module of this portfolio is a cyber chat assistant that communicates asynchronously with Google's LLM model.
+* **Custom System Prompt:** A hidden instruction runs in the background, anchoring the AI as the *"Ege Sül Cyber Assistant"*. It defines my identity, my technical competencies (C#/.NET Core, MS SQL, Python), my key projects (Gym SaaS, Burger House, CMS, CyberAuth), and my long-term goal of becoming an Enterprise C# Software Architect.
+* **Exponential Backoff:** The asynchronous API calls are protected against network drops or temporary downtime. If a request fails, the system triggers an automatic retry up to 5 times, doubling the delay after each attempt (1s, 2s, 4s, 8s, 16s).
 
-### 🔊 F. Fütüristik Sentezlenmiş Ses Motoru (Web Audio API)
-Sitedeki en sıra dışı detaylardan biri, hiçbir dış ses dosyası yüklenmeden, tarayıcının kendi ses işlemcisini tetikleyen ses sentezleyicidir.
-* **OscillatorNode:** UI üzerindeki buton kliklerinde ve terminal tuş basımlarında farklı frekans ve dalga formlarında (*Sine, Triangle, Sawtooth*) dijital bip sesleri asenkron olarak üretilir.
-* **GainNode:** Ses sönümlenme hızı (*exponential decay*) kontrol edilerek premium bir siber atmosfer elde edilmiştir. Sol alttaki sessize alma butonuyla sistem tamamen susturulabilir.
-
-### 🎨 G. Siber Kontrol Paneli Belirleyicisi (Neon Customizer)
-Ziyaretçilerin web sitesiyle kurduğu etkileşimi en üst seviyeye çıkarmak için sağ altta yer alan kontrol panelini geliştirdim:
-* **Renk Temaları:** Klasik (Sarı/Mavi), Matrix Yeşili, Volkan Pembe/Sarı, Sanal Kan (Blood) ve Gökyüzü (Sky) temalarıyla CSS Değişkenleri (*CSS Variables*) manipüle edilir ve tüm parçacıklar anında seçilen temaya adapte olur.
-* **Ağ Eleman Şekli:** Canvas plexus üzerindeki parçacıkların çizim yolları dinamik olarak Küre (*Circle*), Kare (*Square*) veya siber sönümlü Yıldız (*Star*) olarak değiştirilebilir.
-* **Sunum Modları:** Sitenin genel görsel kimliğini Siber Neon (canlı mod), Terminal (retro monospaced mod) veya Minimalist (grid çizgilerinin kapalı olduğu temiz kurumsal okuma modu) olarak dönüştürebilirsiniz.
-* **Hafıza (LocalStorage):** Tüm kullanıcı tercihleri tarayıcı hafızasına kaydedilir, sayfa yenilendiğinde tercihler kaybolmaz.
-
----
-
-## 📈 Bir Geliştirici Olarak Bana Ne Kattı? (Öğrendiklerim & Refactoring)
-
-Bu portfolyoyu geliştirmek benim için muazzam bir *refactoring* (kod iyileştirme) ve asenkron programlama okulu oldu.
-
-* **Yapay Zeka ile Ortak Çalışma Kültürü:** Yapay zekayı sadece kod kopyalamak için değil, bilmediğim karmaşık mimarileri (API entegrasyonu, siber ses sentezleme algoritması vb.) projemin vizyonuna uygun şekilde yönetmek için nasıl bir "asistan" olarak kullanabileceğimi deneyimledim. Kodun her hücresini analiz ederek asıl öğrenmeyi gerçekleştirdim.
-* **Performans Odaklı Düşünme:** Canvas döngüsünde her saniye yüzlerce kez stil okuyan ağır fonksiyonları kaldırıp verileri JavaScript üzerinde önbelleğe alarak rendering optimizasyonu yapmayı öğrendim.
-* **Hata Yönetimi ve Dayanıklılık:** Gemini API entegrasyonu yaparken, ağ kesintilerine karşı üstel geri çekilme (*exponential backoff*) algoritmalarını asenkron olarak kurmayı deneyimledim.
-* **Öğrenmeye Devam:** Backend tarafında C# ve SQL Server derinliğimi korurken, yapay zeka modelleri ve veri analitiği otomasyonu için Python ekosistemine de sağlam bir adım attım.
-
----
-
-## 🗺️ Gelecek Yol Haritam (Roadmap)
-
-- [ ] **Gerçek .NET API Bağlantısı:** JavaScript mock veritabanı yapısını, Docker üzerinde koşan gerçek bir .NET Core Web API projesine ve Redis cache sunucusuna asenkron olarak bağlamak.
-- [ ] **Canlı GitHub API Entegrasyonu:** Sitedeki projeler alanını, GitHub profilimdeki commit (kod yükleme) hareketleriyle asenkron olarak beslemek.
-
----
-
-### 💬 Son Söz
-Yazılım benim için sadece kod yazmak değil; bir fikri asenkron çalışan, optimize edilmiş, güvenli ve fütüristik bir sisteme dönüştürmektir. Sitemi incelediğiniz için teşekkürler!
+### 🔊 F. Futuristic Synthesized Audio Engine (Web Audio API)
+One of the most unique details of the site is an audio synthesizer that triggers the browser's native audio processor without loading external files.
+* **OscillatorNode:** Digital beeps are generated asynchronously using various frequencies and waveforms (Sine, Triangle, Sawtooth) whenever UI buttons are clicked or terminal keys are pressed.
+* **GainNode:** A premium cyber atmosphere is achieved by managing sound attenuation via exponential decay.
