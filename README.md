@@ -94,6 +94,23 @@ Choose one of the simple methods below to launch the dashboard instantly:
    ```bash
    https://github.com/EgeSul/my-portfolio
 
+---
+
+## 🤝 Contributing & Standards
+
+This project is a personal live showcase simulation, but feedback and structural optimization ideas are always welcome. To maintain the project's high performance and core philosophy, please follow these strict development standards:
+
+### 🎯 Development Rules
+1. **Zero-Dependency Policy:** Absolutely no external CSS or JS libraries (No Tailwind, Bootstrap, jQuery, npm packages, etc.). Everything must remain in native **HTML5, CSS3, and Vanilla JavaScript**.
+2. **Performance Constraints:** Any new UI element or animation must be designed using non-blocking asynchronous loops. The Canvas engine must maintain a locked **60FPS** loop using `requestAnimationFrame`.
+3. **No Global Pollution:** All variables, helper functions, and local logic must be encapsulated within modular wrappers or isolated scopes to prevent scope collision.
+
+### 🛠️ Process Workflow
+1. **Fork** the repository and create your feature branch:
+   ```bash
+   git checkout -b feature/AmazingCyberFeature
+
+
 ## 📂 Project Directory Structure
 ```text
 ├── index.html          # Monolithic architecture: Contains HTML5 layout, CSS3 variables, and Vanilla JS Engine
